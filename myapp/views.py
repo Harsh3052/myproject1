@@ -59,7 +59,7 @@ def hr_forgot_evalute(request):
 def hr_otp_evalute(request):
     try:
         hemail=request.POST['email']
-        # hemail = request.session.get('email_otp', 'red')
+        hemail = request.session.get('email_otp', 'red')
         otp1=request.POST['otp1']
         otp2=request.POST['otp2']
         otp3=request.POST['otp3']
