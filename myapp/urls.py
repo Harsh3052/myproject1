@@ -25,6 +25,7 @@ urlpatterns = [
     path('HR_OPT/',views.hr_otp, name='hr_otp'),
     path('HR_forgot_evalute/',views.hr_forgot_evalute,name='hr_forgot_evalute'),
     path('HR_otp_evalute/',views.hr_otp_evalute,name='hr_otp_evalute'),
+    path('HR_Resend_otp/',views.resend_otp,name='resend_otp'),
     path('HR_new_password/',views.hr_new_password,name='hr_new_password'),
     path('HR_new_password_evalute/',views.hr_new_password_evaluate,name='hr_new_password_evaluate'),
     

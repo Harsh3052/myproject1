@@ -19,6 +19,7 @@ def hr_login_evalute(request):
             if uid.password==hpassword:
                 request.session['username']=uid.username 
                 request.session['id']=uid.id
+                request.session['email']=uid.email
 
                 return render(request,"myapp/index.html")
             else:
@@ -56,6 +57,8 @@ def hr_forgot_evalute(request):
         msg="Invalid email address"
         return render(request,"myapp/hr_forgot_password.html",{'msg':msg})
 
+
+
 def hr_otp_evalute(request):
     try:
         hemail=request.POST['email']
@@ -78,6 +81,24 @@ def hr_otp_evalute(request):
     except :
         msg="Invalid OPT"
         return render(request,"myapp/hr_opt.html",{'msg':msg ,'email':hemail})
+
+def resend_otp(request):
+    hemail=request.POST['email']
+    otp=randint(1111,9999)
+    subject="OTP"
+    msg=str(otp)
+    
+    uid=HR.objects.get(email=hemail)
+    uid.otp=otp
+    uid.save()
+    send_mail(subject,msg, 'anjali.20.learn@gmail.com',[hemail])
+    
+    if send_mail:
+        msg="OTP Send Successfully"
+        return render(request,"myapp/hr_otp.html",{'msg2':msg ,'email':hemail})
+    else:
+        msg="OTP Send Unsccessfully"
+        return render(request,"myapp/hr_otp.html",{'msg3':msg ,'email':hemail})
 
 def hr_new_password(request):
     return render(request,"myapp/hr_new_password.html")
@@ -104,10 +125,10 @@ def hr_new_password_evaluate(request):
                 msg2="Change Password Successfully"
                 return render(request,"myapp/HR_login.html",{'msg2':msg2})
         else:
-            msg="Passwod Not Match"
+            msg="Password Not Match"
             return render(request,"myapp/hr_new_password.html",{'msg':msg,'email':email})
     else:
-        msg="Passwod Not Match"
+        msg="Password Not Match"
         return render(request,"myapp/hr_new_password.html",{'msg':msg,'email':email})
     
     #return render(request,"myapp/HR_login.html")

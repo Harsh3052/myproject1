@@ -33,7 +33,7 @@
 		<!-- Main Wrapper -->
         <div class="main-wrapper">
 			<div class="account-content">
-				<!-- <a href="job-list.html" class="btn btn-primary apply-btn">Apply Job</a> -->
+				<a href="job-list.html" class="btn btn-primary apply-btn">Apply Job</a>
 				<div class="container">
 				
 					<!-- Account Logo -->
@@ -66,12 +66,40 @@
 								<div class="form-group text-center">
 									<button class="btn btn-primary account-btn" type="submit">Enter</button>
 								</div>
-								<div class="account-footer">
-									<p>Not yet received? <a href="javascript:void(0);">Resend OTP</a></p>
-								</div>
+								<!-- <div class="account-footer">
+									<p>Not yet received? <a href="javascript:void(0);" >Resend OTP</a></p>
+								</div> -->
 							</form>
+
 							<!-- /Account Form -->
 							
+
+							<!-- Account Form -->
+							<form action="{% url 'resend_otp' %}" method="POST">
+									{% csrf_token %}
+
+									{% if msg3 %}
+									<div class="alert alert-primary" role="alert">
+										{{msg3}}
+									</div>
+									{% endif %}
+
+									{% if msg2 %}
+									<div class="alert alert-success" role="alert">
+										{{msg2}}
+									</div>
+									{% endif %}
+								<div class="otp-wrap">
+										<input type="hidden" name="email" placeholder="0" maxlength="1" class="otp-input" value="{{email}}">
+								</div>
+								<div class="form-group text-center">
+									<button class="btn btn-primary account-btn" type="submit">Resend OTP</button>
+								</div>
+								<!-- <div class="account-footer">
+									<p>Not yet received? <a href="javascript:void(0);" >Resend OTP</a></p>
+								</div> -->
+							</form>
+
 						</div>
 					</div>
 				</div>
