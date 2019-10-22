@@ -33,7 +33,45 @@
 		<!-- Main Wrapper -->
         <div class="main-wrapper">
 			<div class="account-content">
-				<a href="job-list.html" class="btn btn-primary apply-btn">Apply Job</a>
+				<a class="btn btn-primary apply-btn">
+					<script>
+					function startTimer(duration, display) {
+						var timer = duration, minutes, seconds;
+						setInterval(function () {
+							minutes = parseInt(timer / 60, 10);
+							seconds = parseInt(timer % 60, 10);
+					
+							minutes = minutes < 10 ? "0" + minutes : minutes;
+							seconds = seconds < 10 ? "0" + seconds : seconds;
+					
+							display.textContent = minutes + ":" + seconds;
+					
+							if (minutes==="00" && seconds==="00"){
+							// return render(request,"myapp/hr_forgot_password.html")
+								window.location="{% url 'hr_forgot_password' %}";
+							}
+					
+							if (--timer < 0) {
+								timer = duration;
+							}
+						}, 1000);
+					}
+					window.onload = function () {
+						var fiveMinutes = 60 * 2,
+						display = document.querySelector('#time');
+						startTimer(fiveMinutes, display);
+					};
+				</script>
+				
+					
+				
+					
+						
+				
+				<body>
+						<div>Time Remaining: <span id="time">02:00</span> </div>
+				</body>
+				</a>
 				<div class="container">
 				
 					<!-- Account Logo -->
