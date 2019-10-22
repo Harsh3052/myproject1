@@ -6,6 +6,10 @@ from django.core.mail import send_mail
 # Create your views here.
 def index(request):
     return render(request,"myapp/index.html")
+    
+
+def events(request):
+    return render(request,"myapp/events.html")
 
 def hr_login_page(request):
     return render(request,"myapp/HR_login.html")
@@ -22,6 +26,8 @@ def hr_login_evalute(request):
                 request.session['email']=uid.email
 
                 return render(request,"myapp/index.html")
+                
+                
             else:
                 msg="invalid password"
                 return render(request,"myapp/HR_login.html",{'msg':msg})
