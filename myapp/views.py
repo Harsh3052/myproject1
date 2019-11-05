@@ -139,5 +139,5 @@ def hr_new_password_evaluate(request):
     
     #return render(request,"myapp/HR_login.html")
 
-def HR_employees(request):
+def hr_employees(request):
     return render(request,"myapp/hr_employees.html")
