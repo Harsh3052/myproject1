@@ -68,7 +68,7 @@ def hr_forgot_evalute(request):
 def hr_otp_evalute(request):
     try:
         hemail=request.POST['email']
-        hemail = request.session.get('email_otp', 'red')
+        hemail = request.session. get('email_otp', 'red')
         otp1=request.POST['otp1']
         otp2=request.POST['otp2']
         otp3=request.POST['otp3']
@@ -124,12 +124,12 @@ def hr_new_password_evaluate(request):
         if password==repassword:
             if password==uid.password:
                 msg="Repeat Password!"
-                return render(request,"myapp/hr_new_password.html",{'msg':msg})
+                return render(request,"myapp/hr_new_password.html",{'msg':msg ,'email':email})
             else:
                 uid.password=password
                 uid.save()
                 msg2="Change Password Successfully"
-                return render(request,"myapp/HR_login.html",{'msg2':msg2})
+                return render(request,"myapp/HR_login.html",{'msg2':msg2,'email':email})
         else:
             msg="Password Not Match"
             return render(request,"myapp/hr_new_password.html",{'msg':msg,'email':email})
@@ -138,3 +138,6 @@ def hr_new_password_evaluate(request):
         return render(request,"myapp/hr_new_password.html",{'msg':msg,'email':email})
     
     #return render(request,"myapp/HR_login.html")
+
+def HR_employees(request):
+    return render(request,"myapp/hr_employees.html")

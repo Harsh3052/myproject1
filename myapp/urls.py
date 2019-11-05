@@ -29,4 +29,5 @@ urlpatterns = [
     path('HR_new_password/',views.hr_new_password,name='hr_new_password'),
     path('HR_new_password_evalute/',views.hr_new_password_evaluate,name='hr_new_password_evaluate'),
     path('HR_cal/',views.events, name='hr_cal'),
+    path('HR_employees/',views.HR_employees,name='HR_employees'),
 ]

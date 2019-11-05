@@ -3091,7 +3091,7 @@ table.dataTable thead > tr > td.sorting {
 	23. Events
 -----------------------*/
 
-.calendar {
+/* .calendar {
 	float: left;
 	margin-bottom: 0;
 }
@@ -3241,7 +3241,7 @@ table.dataTable thead > tr > td.sorting {
 }
 .event-form .input-group .form-control {
 	height: 40px;
-}
+} */
 
 /*-----------------
 	24. Profile
