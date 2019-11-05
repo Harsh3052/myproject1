@@ -141,3 +141,17 @@ def hr_new_password_evaluate(request):
 
 def hr_employees(request):
     return render(request,"myapp/hr_employees.html")
+
+def hr_employees_evolution(request):
+    first_name=request.POST["first_name"]
+    last_name=request.POST["last_name"]
+    username=request.POST["username"]
+    email= request.POST["email"]
+    password = request.POST["password"]
+    phone = request.POST["phone"]
+    company = request.POST["company"]
+    department = request.POST["department"]
+    designation = request.POST["designation"]
+    insert=HR_emp.objects.create(first_name=first_name,last_name=last_name,username=username,email=email,password=password,phone=phone,company=company,department=department,designation=designation)
+    return render(request,"myapp/hr_employees.html")
+

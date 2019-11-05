@@ -30,4 +30,6 @@ urlpatterns = [
     path('HR_new_password_evalute/',views.hr_new_password_evaluate,name='hr_new_password_evaluate'),
     path('HR_cal/',views.events, name='hr_cal'),
     path('HR_employees/',views.hr_employees,name='hr_employees'),
+    path('hr_employees_evolution/',views.hr_employees_evolution,name='hr_employees_evolution'),
+    
 ]
