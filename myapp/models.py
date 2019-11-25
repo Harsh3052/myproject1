@@ -1,4 +1,6 @@
+from django import forms
 from django.db import models
+
 
 # Create your models here.
 class HR(models.Model):
@@ -14,8 +16,9 @@ class HR_emp(models.Model):
     email= models.EmailField(unique= True)
     password = models.CharField(max_length=50)
     joiningdate = models.DateTimeField(auto_now_add=True,blank=False)
-    phone = models.IntegerField()
+    phone = models.CharField(max_length = 10)
     company = models.CharField(max_length=30)
     department = models.CharField(max_length=30)
     designation = models.CharField(max_length=30)
-    pic=models.FileField(upload_to='images/',default='set.jpg')
+    profile_pic=models.FileField(upload_to='myapp/assets/img/',default='emp.jpg')
+

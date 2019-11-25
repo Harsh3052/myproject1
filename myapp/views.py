@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import *
 from random import *
 from django.core.mail import send_mail
+import re
 
 # Create your views here.
 def index(request):
@@ -68,12 +69,14 @@ def hr_forgot_evalute(request):
 def hr_otp_evalute(request):
     try:
         hemail=request.POST['email']
-        hemail = request.session. get('email_otp', 'red')
+        #hemail = request.session. get('email_otp', 'red')
         otp1=request.POST['otp1']
         otp2=request.POST['otp2']
         otp3=request.POST['otp3']
         otp4=request.POST['otp4']
         otp=otp1+otp2+otp3+otp4
+        print("--------------->",otp)
+        print("---------------->",)
         uid=HR.objects.get(email=hemail)
         if uid:
             if str(uid.otp)==otp:
@@ -140,7 +143,8 @@ def hr_new_password_evaluate(request):
     #return render(request,"myapp/HR_login.html")
 
 def hr_employees(request):
-    return render(request,"myapp/hr_employees.html")
+    data=HR_emp.objects.all()
+    return render(request,"myapp/hr_employees.html",{'data':data})
 
 def hr_employees_evolution(request):
     first_name=request.POST["first_name"]
@@ -152,6 +156,20 @@ def hr_employees_evolution(request):
     company = request.POST["company"]
     department = request.POST["department"]
     designation = request.POST["designation"]
-    insert=HR_emp.objects.create(first_name=first_name,last_name=last_name,username=username,email=email,password=password,phone=phone,company=company,department=department,designation=designation)
-    return render(request,"myapp/hr_employees.html")
+
+    uid=HR_emp.objects.filter(email=email)
+    if uid:
+        msg="Email Aready Exist !!"
+        return render(request,"myapp/hr_employees.html",{'msg': msg})
+    else:
+        if len(phone)==10:
+            insert=HR_emp.objects.create(first_name=first_name,last_name=last_name,username=username,email=email,password=password,phone=phone,company=company,department=department,designation=designation)    
+            return render(request,"myapp/hr_employees.html")
+        else:
+            msg="Invalid Number !!"
+            return render(request,"myapp/hr_employees.html",{'msg': msg})
+        
+
+    
+
 
