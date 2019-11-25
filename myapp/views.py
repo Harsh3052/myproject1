@@ -146,6 +146,9 @@ def hr_employees(request):
     data=HR_emp.objects.all()
     return render(request,"myapp/hr_employees.html",{'data':data})
 
+def hr_emp_add(request):
+    return render(request,"myapp/hr_emp_add.html")
+
 def hr_employees_evolution(request):
     first_name=request.POST["first_name"]
     last_name=request.POST["last_name"]
@@ -160,14 +163,16 @@ def hr_employees_evolution(request):
     uid=HR_emp.objects.filter(email=email)
     if uid:
         msg="Email Aready Exist !!"
-        return render(request,"myapp/hr_employees.html",{'msg': msg})
+        return render(request,"myapp/hr_emp_add.html",{'msg': msg})
     else:
         if len(phone)==10:
             insert=HR_emp.objects.create(first_name=first_name,last_name=last_name,username=username,email=email,password=password,phone=phone,company=company,department=department,designation=designation)    
-            return render(request,"myapp/hr_employees.html")
+            msg2="Employee Successfully Add!!"
+            data=HR_emp.objects.all()
+            return render(request,"myapp/hr_employees.html",{'msg2': msg2 ,'data':data})
         else:
             msg="Invalid Number !!"
-            return render(request,"myapp/hr_employees.html",{'msg': msg})
+            return render(request,"myapp/hr_emp_add.html",{'msg': msg})
         
 
     
