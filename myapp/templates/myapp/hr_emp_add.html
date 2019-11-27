@@ -424,10 +424,9 @@
 							<form   action="{% url 'hr_employees_evolution' %}"  method="POST" name="empform">
 								{% csrf_token %}
 								
-								
-								{% if msg %}
+								{% if data.msg %}
 								<div class="alert alert-primary" role="alert">
-									{{msg}}
+									{{data.msg}}
 								</div>
 								{% endif %}
 
@@ -436,33 +435,33 @@
 										<div class="form-group">
 											<label class="col-form-label">First Name <span
 													class="text-danger">*</span></label>
-											<input class="form-control" name="first_name" type="text" required>
+											<input class="form-control" name="first_name" value="{{data.first_name}}" type="text" required >
 										</div>
 									</div>
 									<div class="col-sm-6">
 										<div class="form-group">
 											<label class="col-form-label">Last Name</label>
-											<input class="form-control" name="last_name" type="text" required>
+											<input class="form-control" name="last_name" value="{{data.last_name}}" type="text" required>
 										</div>
 									</div>
 									<div class="col-sm-6">
 										<div class="form-group">
 											<label class="col-form-label">Username <span
 													class="text-danger">*</span></label>
-											<input class="form-control" name="username" type="text" required>
+											<input class="form-control" name="username" value="{{data.username}}" type="text" required>
 										</div>
 									</div>
 									<div class="col-sm-6">
 										<div class="form-group">
 											<label class="col-form-label">Email <span
 													class="text-danger">*</span></label>
-											<input class="form-control" name="email" type="email" required>
+											<input class="form-control" name="email" value="{{data.email}}" type="email" required>
 										</div>
 									</div>
 									<div class="col-sm-6">
 										<div class="form-group">
 											<label class="col-form-label">Password</label>
-											<input class="form-control" name="password" type="password" required>
+											<input class="form-control" name="password"  type="password" required>
 										</div>
 									</div>
 									<!-- <div class="col-sm-6">
@@ -484,21 +483,21 @@
 										
 
 											<label class="col-form-label">Phone </label>
-											<input class="form-control" name="phone" type="text" required >
+											<input class="form-control" name="phone" value="{{data.phone}}" type="text" required >
 										</div>
 									</div>
 									<div class="col-sm-6">
 										<div class="form-group">
 											<label class="col-form-label">Company <span
 													class="text-danger">*</span></label>
-											<input class="form-control" name="company" type="text" required>
+											<input class="form-control" name="company" value="{{data.company}}" type="text" required>
 										</div>
 									</div>
-								</div>
+								
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Department <span class="text-danger">*</span></label>
-										<select class="select" name="department" required>
+										<select class="select" name="department" value="{{data.department}}" required>
 											<option value="">Select Department </option>
 											<option value="Web Developer">Web Development</option>
 											<option value="IT Management">IT Management</option>
@@ -509,7 +508,7 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Designation <span class="text-danger">*</span></label>
-										<select class="select" name="designation" required>
+										<select class="select" name="designation" value="{{data.designation}}" required>
 											<option value="" >Select Designation</option>
 											<option value="Web Designer"> Web Designer</option>
 											<option value="Web Developer">Web Developer</option>
@@ -517,6 +516,7 @@
 										</select>
 									</div>
 								</div>
+							</div>
 						</div>
 						
 						<!-- <div class="table-responsive m-t-15"> -->

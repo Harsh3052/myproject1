@@ -32,5 +32,6 @@ urlpatterns = [
     path('HR_employees/',views.hr_employees,name='hr_employees'),
     path('HR_emp_add/',views.hr_emp_add,name='hr_emp_add'),
     path('hr_employees_evolution/',views.hr_employees_evolution,name='hr_employees_evolution'),
+    path('profile/',views.profile,name='profile'),
     
 ]
