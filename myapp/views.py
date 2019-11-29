@@ -197,6 +197,6 @@ def profile(request):
 
 def profile_evolution(request,pk=None):
     # data=HR_emp.objects.all().value('username')
-    emp=HR_emp.objects.get(id1=pk)
+    emp=HR_emp.objects.get(id=pk)
     print("------------> uid ",emp)
     return render(request,"myapp/profile.html",{'emp':emp})
