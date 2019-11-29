@@ -33,5 +33,5 @@ urlpatterns = [
     path('HR_emp_add/',views.hr_emp_add,name='hr_emp_add'),
     path('hr_employees_evolution/',views.hr_employees_evolution,name='hr_employees_evolution'),
     path('profile/',views.profile,name='profile'),
-    
+    path(r'^profile-evolution/(?P<pk>\d+)/$', views.profile_evolution, name='profile_evolution'),
 ]

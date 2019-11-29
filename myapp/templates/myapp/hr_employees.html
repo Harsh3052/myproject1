@@ -707,14 +707,21 @@
 					{{msg2}}
 				</div>
 				{% endif %}
+				
 				<div class="row staff-grid-row">
 					{% for item in data %}
+					
 					<div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
+							{% csrf_token %}
+						
 						<div class="profile-widget">
+							
+										<!-- <input value="{{item.uid}}"  name="id" hidden> -->
 							<div class="profile-img">
-								<a href="profile.html" class="avatar"><img src="{{item.profile_pic.url}}"
-										alt=""></a>
+								<a href="{% url 'profile_evolution' pk=item.id %}"><img src="{{item.profile_pic.url}}" class="avatar"/></a>
+
 							</div>
+							
 							<div class="dropdown profile-action">
 								<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown"
 									aria-expanded="false"><i class="material-icons">more_vert</i></a>
@@ -725,13 +732,14 @@
 										data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
 								</div>
 							</div>
-							<h4 class="user-name m-t-10 mb-0 text-ellipsis"><a href="profile.html">{{item.first_name}}</a></h4>
+							<h4 class="user-name m-t-10 mb-0 text-ellipsis"><a href="">{{item.first_name}}</a></h4>
 							<div class="small text-muted">{{item.designation}}</div>
+							
 						</div>
 					</div>
 
 					{% endfor %}
-					
+			
 				</div>
 			</div>
 			<!-- /Page Content -->

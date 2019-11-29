@@ -146,6 +146,7 @@ def hr_employees(request):
     data=HR_emp.objects.all()
     return render(request,"myapp/hr_employees.html",{'data':data})
 
+
 def hr_emp_add(request):
     return render(request,"myapp/hr_emp_add.html")
 
@@ -181,7 +182,7 @@ def hr_employees_evolution(request):
         data["msg"]="Username Aready Exist !!"
         return render(request,"myapp/hr_emp_add.html",{'data': data})
     else:
-        if len(phone)==10 and isinstance(phone , int):
+        if  isinstance(phone , str)== True and len(phone)==10 :
             print("------------------->phone: ",phone)
             insert=HR_emp.objects.create(first_name=first_name,last_name=last_name,username=username,email=email,password=password,phone=phone,company=company,department=department,designation=designation)    
             msg2="Employee Successfully Add!!"
@@ -194,4 +195,8 @@ def hr_employees_evolution(request):
 def profile(request):
     return render(request,"myapp/profile.html") 
 
-
+def profile_evolution(request,pk=None):
+    # data=HR_emp.objects.all().value('username')
+    emp=HR_emp.objects.get(id1=pk)
+    print("------------> uid ",emp)
+    return render(request,"myapp/profile.html",{'emp':emp})

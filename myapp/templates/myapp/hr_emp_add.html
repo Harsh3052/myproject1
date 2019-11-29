@@ -32,7 +32,13 @@
 
 	<!-- Main CSS -->
 	<link rel="stylesheet" href="{% static 'myapp\assets\css\style.css' %}">
-
+	<style>
+		input[type=number]::-webkit-inner-spin-button, 
+		input[type=number]::-webkit-outer-spin-button { 
+			-webkit-appearance: none; 
+			margin: 0; 
+	}
+	</style>
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
 			<script src="assets/js/html5shiv.min.js"></script>
@@ -488,7 +494,7 @@
 										
 
 											<label class="col-form-label">Phone </label>
-											<input class="form-control" name="phone" value="{{data.phone}}" type="text" required >
+											<input class="form-control" name="phone" value="{{data.phone}}" type="number" required >
 										</div>
 									</div>
 									<div class="col-sm-6">
