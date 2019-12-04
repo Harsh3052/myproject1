@@ -21,4 +21,4 @@ class HR_emp(models.Model):
     department = models.CharField(max_length=30)
     designation = models.CharField(max_length=30)
     profile_pic=models.FileField(upload_to='myapp/assets/img/',default='emp.jpg')
-
+    otp = models.IntegerField(default = 459)

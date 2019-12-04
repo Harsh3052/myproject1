@@ -33,7 +33,45 @@
 		<!-- Main Wrapper -->
         <div class="main-wrapper">
 			<div class="account-content">
-				<!-- <a href="job-list.html" class="btn btn-primary apply-btn">Apply Job</a> -->
+				<a class="btn btn-primary apply-btn">
+					<script>
+					function startTimer(duration, display) {
+						var timer = duration, minutes, seconds;
+						setInterval(function () {
+							minutes = parseInt(timer / 60, 10);
+							seconds = parseInt(timer % 60, 10);
+					
+							minutes = minutes < 10 ? "0" + minutes : minutes;
+							seconds = seconds < 10 ? "0" + seconds : seconds;
+					
+							display.textContent = minutes + ":" + seconds;
+					
+							if (minutes==="00" && seconds==="00"){
+							// return render(request,"myapp/hr_forgot_password.html")
+								window.location="{% url 'hr_forgot_password' %}";
+							}
+					
+							if (--timer < 0) {
+								timer = duration;
+							}
+						}, 1000);
+					}
+					window.onload = function () {
+						var fiveMinutes = 60 * 2,
+						display = document.querySelector('#time');
+						startTimer(fiveMinutes, display);
+					};
+				</script>
+				
+					
+				
+					
+						
+				
+				<body>
+						<div>Time Remaining: <span id="time">02:00</span> </div>
+				</body>
+				</a>
 				<div class="container">
 				
 					<!-- Account Logo -->
@@ -48,7 +86,7 @@
 							<p class="account-subtitle">Verification your account</p>
 							
 							<!-- Account Form -->
-							<form action="{% url 'hr_otp_evalute' %}" method="POST">
+							<form action="{% url 'emp_otp_ev' %}" method="POST">
 									{% csrf_token %}
 
 									{% if msg %}
@@ -57,7 +95,7 @@
 									</div>
 									{% endif %}
 								<div class="otp-wrap">
-										<input type="hidden" name="email" placeholder="0" maxlength="1" class="otp-input" value="{{uid.email}}">
+										<input  type="hidden" name="email" placeholder="0" maxlength="1" class="otp-input" value="{{email}}">
 									<input type="text" name="otp1" placeholder="0" maxlength="1" class="otp-input">
 									<input type="text" name="otp2" placeholder="0" maxlength="1" class="otp-input">
 									<input type="text" name="otp3" placeholder="0" maxlength="1" class="otp-input">
@@ -66,12 +104,40 @@
 								<div class="form-group text-center">
 									<button class="btn btn-primary account-btn" type="submit">Enter</button>
 								</div>
-								<div class="account-footer">
-									<p>Not yet received? <a href="javascript:void(0);">Resend OTP</a></p>
-								</div>
+								<!-- <div class="account-footer">
+									<p>Not yet received? <a href="javascript:void(0);" >Resend OTP</a></p>
+								</div> -->
 							</form>
+
 							<!-- /Account Form -->
 							
+
+							<!-- Account Form -->
+							<form action="{% url 'emp_resend_otp' %}" method="POST">
+									{% csrf_token %}
+
+									{% if msg3 %}
+									<div class="alert alert-primary" role="alert">
+										{{msg3}}
+									</div>
+									{% endif %}
+
+									{% if msg2 %}
+									<div class="alert alert-success" role="alert">
+										{{msg2}}
+									</div>
+									{% endif %}
+								<div class="otp-wrap">
+										<input type="hidden" name="email" placeholder="0" maxlength="1" class="otp-input" value="{{email}}">
+								</div>
+								<div class="form-group text-center">
+									<button class="btn btn-primary account-btn" type="submit">Resend OTP</button>
+								</div>
+								<!-- <div class="account-footer">
+									<p>Not yet received? <a href="javascript:void(0);" >Resend OTP</a></p>
+								</div> -->
+							</form>
+
 						</div>
 					</div>
 				</div>
