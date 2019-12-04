@@ -19,6 +19,9 @@ from HR_Employee import views
 
 urlpatterns = [
   #  path('', views.index, name='hr_index'),
-    path('login/', views.login_page, name='login'),
-    
+    path('emp_login/', views.emp_login, name='emp_login'),
+    path('emp_index/',views.emp_index, name='emp_index'),
+    path('emp_login_evalute/',views.emp_login_evalute,name='emp_login_evalute'),
+    path('emp_forgot_password/',views.emp_forgot_password,name='emp_forgot_password'),
+    path('emp_forgot_password_ev/',views.emp_forgot_password_ev,name='emp_forgot_password_ev'),
 ]
