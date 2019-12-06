@@ -200,3 +200,9 @@ def profile_evolution(request,pk=None):
     emp=HR_emp.objects.get(id=pk)
     print("------------> uid ",emp)
     return render(request,"myapp/profile.html",{'emp':emp})
+
+def search_ev(request):
+    e_name=request.POST['emp_name']
+    print("EMP_NAME:==============================================>",e_name)
+    emp_data=HR_emp.objects.filter(first_name=e_name)
+    return render(request,"myapp/hr_employees.html",{'emp_data': emp_data}) 

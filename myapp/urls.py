@@ -34,4 +34,6 @@ urlpatterns = [
     path('hr_employees_evolution/',views.hr_employees_evolution,name='hr_employees_evolution'),
     path('profile/',views.profile,name='profile'),
     path(r'^profile-evolution/(?P<pk>\d+)/$', views.profile_evolution, name='profile_evolution'),
+    path('search_ev/',views.search_ev,name='search_ev'),
+
 ]
