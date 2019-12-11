@@ -205,4 +205,5 @@ def search_ev(request):
     e_name=request.POST['emp_name']
     print("EMP_NAME:==============================================>",e_name)
     emp_data=HR_emp.objects.filter(first_name=e_name)
+    print("emp_data:============================================>",emp_data)
     return render(request,"myapp/hr_employees.html",{'emp_data': emp_data}) 

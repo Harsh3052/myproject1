@@ -750,8 +750,9 @@
 			<!-- ======================================================================================================== -->
 <!-- <div>{{emp_data}}</div> -->
 			
-					{% for item in emp_data %}
+					
 					<div class="row staff-grid-row">
+							{% for item in emp_data %}
 					<div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
 							{% csrf_token %}
 						
@@ -779,11 +780,11 @@
 						</div>
 					</div>
 
-					
+					{% endfor %}
 			
 				</div>
 			</div>
-			{% endfor %}
+			
 			<!-- /Page Content -->
 
 		
