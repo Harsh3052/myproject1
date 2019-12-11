@@ -211,3 +211,11 @@ def search_ev(request):
 def emp_list(request):
     data=HR_emp.objects.all()
     return render(request,"myapp/emp_list.html",{'data':data}) 
+
+def search_ev_list(request):
+    e_name=request.POST['emp_name']
+    e_id=request.POST['emp_id']
+    print("EMP_NAME:==============================================>",e_name)
+    data=HR_emp.objects.filter(first_name=e_name,id=e_id)
+    print("emp_data:============================================>",data)
+    return render(request,"myapp/emp_list.html",{'emp_data': data}) 
