@@ -207,3 +207,7 @@ def search_ev(request):
     emp_data=HR_emp.objects.filter(first_name=e_name)
     print("emp_data:============================================>",emp_data)
     return render(request,"myapp/hr_employees.html",{'emp_data': emp_data}) 
+
+def emp_list(request):
+    data=HR_emp.objects.all()
+    return render(request,"myapp/emp_list.html",{'data':data}) 
