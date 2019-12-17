@@ -331,14 +331,16 @@
 
 				<li class="nav-item dropdown has-arrow main-drop">
 					<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-						<span class="user-img"><img src="{% static 'myapp\assets\img\profiles\avatar-21.jpg' %}" alt="">
+						{% for item in data2 %}
+						<span class="user-img"><img src="{{item.profile_pic.url}}" alt="">
+							{% endfor %}
 							<span class="status online"></span></span>
 						<span>Admin</span>
 					</a>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="profile.html">My Profile</a>
+						<a class="dropdown-item" href="{% url 'profile' %}">My Profile</a>
 						<a class="dropdown-item" href="settings.html">Settings</a>
-						<a class="dropdown-item" href="login.html">Logout</a>
+						<a class="dropdown-item" href="{% url 'hr_logout'%}">Logout</a>
 					</div>
 				</li>
 			</ul>

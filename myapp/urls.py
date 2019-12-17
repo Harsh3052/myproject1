@@ -28,6 +28,7 @@ urlpatterns = [
     path('HR_Resend_otp/',views.resend_otp,name='resend_otp'),
     path('HR_new_password/',views.hr_new_password,name='hr_new_password'),
     path('HR_new_password_evalute/',views.hr_new_password_evaluate,name='hr_new_password_evaluate'),
+    path('hr_logout/',views.hr_logout,name='hr_logout'),
     path('HR_cal/',views.events, name='hr_cal'),
     path('HR_employees/',views.hr_employees,name='hr_employees'),
     path('HR_emp_add/',views.hr_emp_add,name='hr_emp_add'),
@@ -37,6 +38,10 @@ urlpatterns = [
     path('search_ev/',views.search_ev,name='search_ev'),
     path('emp_list/',views.emp_list,name='emp_list'),
     path('search_ev_list/',views.search_ev_list,name='search_ev_list'),
-
-]
+    path(r'^edit-profile/(?P<pk>\d+)/$', views.edit_profile, name='edit_profile'),
+    path('update_emp_ev/',views.update_emp_ev,name='update_emp_ev'),
+    path(r'^delete_emp/(?P<pk>\d+)/$', views.delete_emp, name='delete_emp'),
+    
+    
+    ]
 

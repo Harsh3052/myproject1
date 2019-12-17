@@ -14,6 +14,8 @@ def index(request):
 def events(request):
     return render(request,"myapp/events.html")
 
+
+
 def hr_login_page(request):
     return render(request,"myapp/HR_login.html")
 
@@ -22,6 +24,7 @@ def hr_login_evalute(request):
         hemail=request.POST['email']
         hpassword=request.POST['password']
         uid=HR.objects.get(email=hemail)
+        data2=HR.objects.all()
         data1=HR_emp.objects.all()
         data=len(data1)
         if uid:
@@ -29,7 +32,7 @@ def hr_login_evalute(request):
                 request.session['username']=uid.username 
                 request.session['id']=uid.id
                 request.session['email']=uid.email
-                return render(request,"myapp/index.html",{'data':data})
+                return render(request,"myapp/index.html",{'data':data , 'data2':data2})
                 
                 
             else:
@@ -145,6 +148,12 @@ def hr_new_password_evaluate(request):
     
     #return render(request,"myapp/HR_login.html")
 
+def hr_logout(request):
+    del request.session['username']
+    del request.session['id']
+    del request.session['email']
+    return render(request,"myapp/HR_login.html")
+
 def hr_employees(request):
     data=HR_emp.objects.all()
     return render(request,"myapp/hr_employees.html",{'data':data})
@@ -222,3 +231,48 @@ def search_ev_list(request):
     data=HR_emp.objects.filter(first_name=e_name,id=e_id)
     print("emp_data:============================================>",data)
     return render(request,"myapp/emp_list.html",{'emp_data': data}) 
+
+
+def edit_profile(request,pk=None):
+    # data=HR_emp.objects.all().value('username')
+    emp=HR_emp.objects.get(id=pk)
+    print("------------> uid ",emp)
+    return render(request,"myapp/edit_profile.html",{'emp':emp})
+
+def update_emp_ev(request,pk=None):
+    id=request.POST['id']
+    first_name=request.POST["first_name"]
+    last_name=request.POST["last_name"]
+    username=request.POST["username"]
+    email= request.POST["email"]
+    password = request.POST["password"]
+    phone = request.POST["phone"]
+    company = request.POST["company"]
+    department = request.POST["department"]
+    designation = request.POST["designation"]
+    uid=HR_emp.objects.get(id=id)
+
+    if uid:
+        uid.first_name=first_name
+        uid.last_name=last_name
+        uid.username=username
+        uid.email=email
+        uid.password=password
+        uid.phone=phone
+        uid.company=company
+        uid.department=department
+        uid.designation=designation
+        uid.save()
+        msg2=" EDIT Employee Successfully!!"
+        data=HR_emp.objects.all()
+        return render(request,"myapp/hr_employees.html",{'msg2': msg2,'data': data})
+
+def delete_emp(request,pk=None):
+    # data=HR_emp.objects.all().value('username')
+    emp=HR_emp.objects.get(id=pk)
+    print("------------> uid ",emp)
+
+    emp.delete()
+    msg2=" DELETE Employee Successfully!!"
+    data=HR_emp.objects.all()
+    return render(request,"myapp/hr_employees.html",{'msg2': msg2,'data': data})
