@@ -6,7 +6,9 @@ import re
 
 # Create your views here.
 def index(request):
-    return render(request,"myapp/index.html")
+    data1=HR_emp.objects.all()
+    data=len(data1)
+    return render(request,"myapp/index.html",{'data':data})
     
 
 def events(request):
@@ -20,13 +22,14 @@ def hr_login_evalute(request):
         hemail=request.POST['email']
         hpassword=request.POST['password']
         uid=HR.objects.get(email=hemail)
+        data1=HR_emp.objects.all()
+        data=len(data1)
         if uid:
             if uid.password==hpassword:
                 request.session['username']=uid.username 
                 request.session['id']=uid.id
                 request.session['email']=uid.email
-
-                return render(request,"myapp/index.html")
+                return render(request,"myapp/index.html",{'data':data})
                 
                 
             else:
