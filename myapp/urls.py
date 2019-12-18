@@ -41,7 +41,10 @@ urlpatterns = [
     path(r'^edit-profile/(?P<pk>\d+)/$', views.edit_profile, name='edit_profile'),
     path('update_emp_ev/',views.update_emp_ev,name='update_emp_ev'),
     path(r'^delete_emp/(?P<pk>\d+)/$', views.delete_emp, name='delete_emp'),
-    
+    path('hr_profile/',views.hr_profile,name='hr_profile'),
+    path('hr_form/',views.hr_form,name='hr_form'),
+    path(r'^hr_form_ev/(?P<pk>\d+)/$',views.hr_form_ev, name='hr_form_ev'),
+    path('update_hr_profile/',views.update_hr_profile,name="update_hr_profile"),
     
     ]
 

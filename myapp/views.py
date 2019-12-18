@@ -276,3 +276,34 @@ def delete_emp(request,pk=None):
     msg2=" DELETE Employee Successfully!!"
     data=HR_emp.objects.all()
     return render(request,"myapp/hr_employees.html",{'msg2': msg2,'data': data})
+
+def hr_profile(request):
+    data=HR.objects.all()
+    return render(request,"myapp/hr_profile.html",{'data' : data})
+
+def hr_form(request):
+    return render(request,"myapp/hr_form.html")
+
+def hr_form_ev(request,pk=None):
+    hr_info=HR.objects.get(id=pk)
+    print("------------> uid ",hr_info)
+    return render(request,"myapp/hr_form.html",{'hr_info':hr_info})
+
+def update_hr_profile(request):
+    id=request.POST['id']
+    pic=request.FILES['pic']
+    fname=request.POST['fname']
+    lname=request.POST['lname']
+    email=request.POST['email']
+    phone=request.POST['phone']
+    uid=HR.objects.get(id=id)
+    if uid:
+        uid.profile_pic=pic
+        uid.hr_first_name=fname
+        uid.hr_last_name=lname
+        uid.email=email
+        uid.phone=phone
+        uid.save()
+        msg2=" Edit HR Successfully!!"
+        data=HR.objects.all()
+        return render(request,"myapp/hr_profile.html",{'msg2': msg2 , 'data' : data})
