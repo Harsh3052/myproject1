@@ -29,7 +29,6 @@ urlpatterns = [
     path('emp_resend_otp/',views.emp_resend_otp, name='emp_resend_otp'),
     path('emp_new_password/',views.emp_new_password, name='emp_new_password'),
     path('emp_new_password_ev/',views.emp_new_password_ev, name='emp_new_password_ev'),
-    path('emp_logout/',views.emp_logout, name='emp_logout'),
 ]
 
 
