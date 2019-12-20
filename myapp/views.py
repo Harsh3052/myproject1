@@ -14,6 +14,8 @@ def index(request):
 def events(request):
     return render(request,"myapp/events.html")
 
+
+
 def hr_login_page(request):
     return render(request,"myapp/HR_login.html")
 
@@ -22,6 +24,7 @@ def hr_login_evalute(request):
         hemail=request.POST['email']
         hpassword=request.POST['password']
         uid=HR.objects.get(email=hemail)
+        data2=HR.objects.all()
         data1=HR_emp.objects.all()
         data=len(data1)
         if uid:
@@ -29,7 +32,7 @@ def hr_login_evalute(request):
                 request.session['username']=uid.username 
                 request.session['id']=uid.id
                 request.session['email']=uid.email
-                return render(request,"myapp/index.html",{'data':data})
+                return render(request,"myapp/index.html",{'data':data , 'data2':data2})
                 
                 
             else:
@@ -144,6 +147,12 @@ def hr_new_password_evaluate(request):
         return render(request,"myapp/hr_new_password.html",{'msg':msg,'email':email})
     
     #return render(request,"myapp/HR_login.html")
+
+def hr_logout(request):
+    del request.session['username']
+    del request.session['id']
+    del request.session['email']
+    return render(request,"myapp/HR_login.html")
 
 def hr_employees(request):
     data=HR_emp.objects.all()

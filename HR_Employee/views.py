@@ -133,3 +133,9 @@ def emp_new_password_ev(request):
     else:
         msg="Password Not Match"
         return render(request,"HR_Employee/emp_new_password.html",{'msg':msg,'email':email})
+
+def emp_logout(request):
+    del request.session['username']
+    del request.session['id']
+    del request.session['email']
+    return render(request,"HR_Employee/emp_login.html")

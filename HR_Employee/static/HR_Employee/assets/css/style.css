@@ -3108,10 +3108,10 @@ table.dataTable thead > tr > td.sorting {
 	line-height: 30px;
 	text-transform: uppercase;
 }
-.fc-day-grid-event .fc-time {
+/* .fc-day-grid-event .fc-time {
 	font-family: 'CircularStd', sans-serif;
-}
-.fc-day {
+} */
+/* .fc-day {
 	background: #fff;
 }
 .fc-toolbar .fc-state-active,
@@ -3170,8 +3170,8 @@ table.dataTable thead > tr > td.sorting {
 }
 .fc-unthemed .fc-today {
 	background: #fff;
-}
-.fc-event {
+} */ 
+/* .fc-event {
 	border-radius: 2px;
 	border: none;
 	cursor: move;
@@ -3179,13 +3179,13 @@ table.dataTable thead > tr > td.sorting {
 	margin: 1px 7px;
 	padding: 5px 5px;
 	text-align: center;
-}
-.external-event {
+} */
+/* .external-event {
 	cursor: move;
 	margin: 10px 0;
 	padding: 6px 10px;
-}
-.external-event.bg-primary {
+} */
+/* .external-event.bg-primary {
 	background-color: rgba(127, 193, 252, 0.3) !important;
 	color: #7fc1fc;
 }
