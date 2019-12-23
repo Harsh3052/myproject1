@@ -8,7 +8,7 @@ class HR(models.Model):
     email=models.EmailField(unique= True)
     password=models.CharField(max_length=50)
     otp = models.IntegerField(default = 459)
-    profile_pic=models.FileField(upload_to='myapp/assets/img/',default='emp.jpg')
+    profile_pic=models.FileField(upload_to='myapp/assets/img/',default='emp.jpg',blank=True)
     hr_first_name=models.CharField(max_length=30)
     hr_last_name=models.CharField(max_length=30)
     phone = models.CharField(max_length = 10)

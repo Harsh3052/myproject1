@@ -5,11 +5,15 @@ from django.core.mail import send_mail
 import re
 
 # Create your views here.
-def index(request):
-    data1=HR_emp.objects.all()
-    data=len(data1)
-    return render(request,"myapp/index.html",{'data':data})
-    
+def index(request):   
+    total_emp=HR_emp.objects.all().count()
+    hid=HR.objects.get(id=request.session['id'])
+    hr={
+        "num_emp":total_emp,    
+        "hid":hid
+    }
+    return render(request,"myapp/index.html",{'hr':hr})
+
 
 def events(request):
     return render(request,"myapp/events.html")
@@ -24,15 +28,22 @@ def hr_login_evalute(request):
         hemail=request.POST['email']
         hpassword=request.POST['password']
         uid=HR.objects.get(email=hemail)
-        data2=HR.objects.all()
-        data1=HR_emp.objects.all()
-        data=len(data1)
+        # data1=HR_emp.objects.all()
+        # data=len(data1)
         if uid:
             if uid.password==hpassword:
                 request.session['username']=uid.username 
                 request.session['id']=uid.id
                 request.session['email']=uid.email
-                return render(request,"myapp/index.html",{'data':data , 'data2':data2})
+                total_emp=HR_emp.objects.all().count()
+                print("---------------------------->",total_emp)
+                hid=HR.objects.get(id=request.session['id'])
+                print("---------------------------->",hid.username)
+                hr={
+                    "num_emp":total_emp,
+                    "hid":hid
+                }
+                return render(request,"myapp/index.html",{'hr':hr})
                 
                 
             else:
@@ -155,7 +166,7 @@ def hr_logout(request):
     return render(request,"myapp/HR_login.html")
 
 def hr_employees(request):
-    data=HR_emp.objects.all()
+    data=HR_emp.objects.all()    
     return render(request,"myapp/hr_employees.html",{'data':data})
 
 
@@ -290,20 +301,44 @@ def hr_form_ev(request,pk=None):
     return render(request,"myapp/hr_form.html",{'hr_info':hr_info})
 
 def update_hr_profile(request):
-    id=request.POST['id']
-    pic=request.FILES['pic']
-    fname=request.POST['fname']
-    lname=request.POST['lname']
-    email=request.POST['email']
-    phone=request.POST['phone']
-    uid=HR.objects.get(id=id)
-    if uid:
-        uid.profile_pic=pic
-        uid.hr_first_name=fname
-        uid.hr_last_name=lname
-        uid.email=email
-        uid.phone=phone
-        uid.save()
-        msg2=" Edit HR Successfully!!"
-        data=HR.objects.all()
-        return render(request,"myapp/hr_profile.html",{'msg2': msg2 , 'data' : data})
+    if len(request.FILES['pic']) <1:
+        pic=request.POST['pic_default']
+        id=request.POST['id']
+        fname=request.POST['fname']
+        lname=request.POST['lname']
+        email=request.POST['email']
+        phone=request.POST['phone']
+        uid=HR.objects.get(id=id)
+        if uid:
+            uid.profile_pic=pic
+            uid.hr_first_name=fname
+            uid.hr_last_name=lname
+            uid.email=email
+            uid.phone=phone
+            uid.save()
+            msg2=" Edit HR Successfully!!"
+            data=HR.objects.all()
+            return render(request,"myapp/hr_profile.html",{'msg2': msg2 , 'data' : data})
+    else:    
+        try:
+            id=request.POST['id']
+            pic=request.FILES['pic']
+            fname=request.POST['fname']
+            lname=request.POST['lname']
+            email=request.POST['email']
+            phone=request.POST['phone']
+            uid=HR.objects.get(id=id)
+            if uid:
+                uid.profile_pic=pic
+                uid.hr_first_name=fname
+                uid.hr_last_name=lname
+                uid.email=email
+                uid.phone=phone
+                uid.save()
+                msg2=" Edit HR Successfully!!"
+                data=HR.objects.all()
+                return render(request,"myapp/hr_profile.html",{'msg2': msg2 , 'data' : data})
+        except:
+            msg2=" Edit HR Successfully!!"
+            data=HR.objects.all()
+            return render(request,"myapp/hr_profile.html",{'msg2': msg2 , 'data' : data})

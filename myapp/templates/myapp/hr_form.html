@@ -447,9 +447,10 @@
 											<label class="col-form-label">Upload Profile <span
                                                     class="text-danger">*</span></label>
                                                     <div class="profile-img">
-                                                        <a ><img src="{{hr_info.profile_pic.url}}" style="margin-left:-120px;" class="avatar"/></a>
+														<a ><img src="{{hr_info.profile_pic.url}}" style="margin-left:-120px;" class="avatar"/></a>
+														<input type="hidden" name="pic_default" value="{{hr_info.profile_pic.url}}"/>
                                                     </div>                                  
-                                            <input type="file" style="margin-top: 10px;" value="{{hr_info.profile_pic.url}}" name="pic" accept="image/*" >
+                                            <input type="file" style="margin-top: 10px;"  name="pic" accept="image/*" >
                                         </div>
                                         
                                     </div>

@@ -331,11 +331,13 @@
 
 				<li class="nav-item dropdown has-arrow main-drop">
 					<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-						{% for item in data2 %}
-						<span class="user-img"><img src="{{item.profile_pic.url}}" alt="">
-							{% endfor %}
-							<span class="status online"></span></span>
-						<span>Admin</span>
+						
+						<span class="user-img" >
+							<img src="{{hr.hid.profile_pic.url}}" alt="">
+							
+							{{hr.hid.username}}
+						</span>
+						
 					</a>
 					<div class="dropdown-menu">
 						<a class="dropdown-item" href="{% url 'hr_profile' %}">HR Profile</a>
@@ -665,7 +667,7 @@
 							<div class="card-body">
 								<span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
 								<div class="dash-widget-info">
-									<h3>{{data}}</h3>
+									<h3>{{hr.num_emp}}</h3>
 									<span>Employees</span>
 								</div>
 							</div>
