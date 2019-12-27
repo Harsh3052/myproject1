@@ -30,6 +30,9 @@ urlpatterns = [
     path('emp_new_password/',views.emp_new_password, name='emp_new_password'),
     path('emp_new_password_ev/',views.emp_new_password_ev, name='emp_new_password_ev'),
     path('emp_logout/',views.emp_logout, name='emp_logout'),
+    path('emp_profile/',views.emp_profile, name='emp_profile'),
+    path('emp_profile_ev/',views.emp_profile_ev, name='emp_profile_ev'),
+    path('update_emp_profile/',views.update_emp_profile, name='update_emp_profile'),
 ]
 
 

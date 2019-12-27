@@ -299,12 +299,13 @@
 
 					<li class="nav-item dropdown has-arrow main-drop">
 						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-							<span class="user-img"><img src="{% static 'myapp\assets\img\profiles\avatar-21.jpg' %}" alt="">
-							<span class="status online"></span></span>
-							<span>Admin</span>
+							<span class="user-img">
+							<img src="{{empid.profile_pic.url}}" alt="">
+							<!-- <span class="status online"></span> -->
+							{{empid.username}}</span>
 						</a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="profile.html">My Profile</a>
+							<a class="dropdown-item" href="{% url 'emp_profile_ev'%}">My Profile</a>
 							<a class="dropdown-item" href="settings.html">Settings</a>
 							<a class="dropdown-item" href="{% url 'emp_logout'%}">Logout</a>
 						</div>
@@ -316,7 +317,9 @@
 				<div class="dropdown mobile-user-menu">
 					<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
 					<div class="dropdown-menu dropdown-menu-right">
-						<a class="dropdown-item" href="profile.html">My Profile</a>
+						
+						<a class="dropdown-item" href="">My Profile</a>
+						
 						<a class="dropdown-item" href="settings.html">Settings</a>
 						<a class="dropdown-item" href="login.html">Logout</a>
 					</div>
@@ -598,7 +601,11 @@
 						</div>
 					</div>
 					<!-- /Page Header -->
-				
+					{% if msg2 %}
+                                <div class="alert alert-success" role="alert">
+                                    {{msg2}}
+                                </div>
+                    {% endif %}
 					<div class="row">
 						<div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
 							<div class="card dash-widget">

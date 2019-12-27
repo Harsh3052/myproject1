@@ -301,8 +301,8 @@ def hr_form_ev(request,pk=None):
     return render(request,"myapp/hr_form.html",{'hr_info':hr_info})
 
 def update_hr_profile(request):
-    if len(request.FILES['pic']) <1:
-        pic=request.POST['pic_default']
+    if "pic" in request.FILES:
+        pic=request.FILES['pic']
         id=request.POST['id']
         fname=request.POST['fname']
         lname=request.POST['lname']
@@ -322,14 +322,14 @@ def update_hr_profile(request):
     else:    
         try:
             id=request.POST['id']
-            pic=request.FILES['pic']
+            #pic=request.FILES['pic']
             fname=request.POST['fname']
             lname=request.POST['lname']
             email=request.POST['email']
             phone=request.POST['phone']
             uid=HR.objects.get(id=id)
             if uid:
-                uid.profile_pic=pic
+                #uid.profile_pic=pic
                 uid.hr_first_name=fname
                 uid.hr_last_name=lname
                 uid.email=email
