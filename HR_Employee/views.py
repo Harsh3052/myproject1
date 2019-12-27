@@ -176,8 +176,7 @@ def update_emp_profile(request):
         password = request.POST['password']
         phone = request.POST['phone']
         company = request.POST['company']
-        department = request.POST['department']
-        designation = request.POST['designation']
+        
         uid = HR_emp.objects.get(id=id)
         if uid:
             uid.profile_pic = pic
@@ -187,8 +186,6 @@ def update_emp_profile(request):
             uid.password = password
             uid.phone = phone
             uid.company = company
-            uid.department = department
-            uid.designation = designation
             uid.save()
             msg2 = " Edit Emp Successfully!!"
             empid = HR_emp.objects.all()
@@ -204,8 +201,6 @@ def update_emp_profile(request):
             password = request.POST['password']
             phone = request.POST['phone']
             company = request.POST['company']
-            department = request.POST['department']
-            designation = request.POST['designation']
             uid = HR_emp.objects.get(id=id)
             if uid:
                 # uid.profile_pic=pic
@@ -215,8 +210,6 @@ def update_emp_profile(request):
                 uid.password = password
                 uid.phone = phone
                 uid.company = company
-                uid.department = department
-                uid.designation = designation
                 uid.save()
                 msg2 = " Edit HR Successfully!!"
                 empid = HR_emp.objects.all()
