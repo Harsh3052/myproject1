@@ -166,9 +166,10 @@ def emp_profile_ev(request):
 
 
 def update_emp_profile(request):
+    eid=request.POST['id']
     if "pic" in request.FILES:
         pic = request.FILES['pic']
-        id = request.POST['id']
+        
         fname = request.POST['first_name']
         lname = request.POST['last_name']
         email = request.POST['email']
@@ -177,22 +178,22 @@ def update_emp_profile(request):
         phone = request.POST['phone']
         company = request.POST['company']
         
-        uid = HR_emp.objects.get(id=id)
-        if uid:
-            uid.profile_pic = pic
-            uid.first_name = fname
-            uid.last_name = lname
-            uid.email = email
-            uid.password = password
-            uid.phone = phone
-            uid.company = company
-            uid.save()
-            msg2 = " Edit Emp Successfully!!"
-            empid = HR_emp.objects.all()
+        empid = HR_emp.objects.get(id=eid)
+        if empid:
+            empid.profile_pic = pic
+            empid.first_name = fname
+            empid.last_name = lname
+            empid.email = email
+            empid.password = password
+            empid.phone = phone
+            empid.company = company
+            empid.save()
+            msg2 = " Edit Successfully!!"
+
+            #empid = HR_emp.objects.all()
             return render(request, "HR_Employee/emp_index.html", {'msg2': msg2, 'empid': empid})
     else:
         try:
-            id = request.POST['id']
             # pic=request.FILES['pic']
             fname = request.POST['first_name']
             lname = request.POST['last_name']
@@ -201,20 +202,20 @@ def update_emp_profile(request):
             password = request.POST['password']
             phone = request.POST['phone']
             company = request.POST['company']
-            uid = HR_emp.objects.get(id=id)
-            if uid:
+            empid = HR_emp.objects.get(id=eid)
+            if empid:
                 # uid.profile_pic=pic
-                uid.first_name = fname
-                uid.last_name = lname
-                uid.email = email
-                uid.password = password
-                uid.phone = phone
-                uid.company = company
-                uid.save()
-                msg2 = " Edit HR Successfully!!"
-                empid = HR_emp.objects.all()
+                empid.first_name = fname
+                empid.last_name = lname
+                empid.email = email
+                empid.password = password
+                empid.phone = phone
+                empid.company = company
+                empid.save()
+                msg2 = " Edit Successfully!!"
+                # empid = HR_emp.objects.all()
                 return render(request, "HR_Employee/emp_index.html", {'msg2': msg2, 'empid': empid})
         except:
             msg2 = "Exception"
-            empid = HR_emp.objects.all()
+            # empid = HR_emp.objects.all()
             return render(request, "HR_Employee/emp_index.html", {'msg2': msg2, 'empid': empid})
