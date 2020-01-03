@@ -495,7 +495,7 @@
 										
 
 											<label class="col-form-label">Phone </label>
-											<input class="form-control" name="phone" value="{{emp.phone}}" type="number" required >
+											<input class="form-control" name="phone" id="phone" value="{{emp.phone}}" type="text" maxlength="10" required >
 										</div>
 									</div>
 									<div class="col-sm-6">
@@ -1077,6 +1077,20 @@
 
 	<!-- Custom JS -->
 	<script src="{% static 'myapp\assets\js\app.js' %}"></script>
+	
+	<script>
+		$(document).ready(function () {
+
+			$("#phone").keypress(function (e) {
+				//if the letter is not digit then display error and don't type anything
+				if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+					//display error message
+					$("#errmsg").html("Digits Only").show().fadeOut("slow");
+						return false;
+				}
+			});
+			});
+		</script>
 
 </body>
 

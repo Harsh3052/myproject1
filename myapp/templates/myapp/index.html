@@ -394,7 +394,7 @@
                      <ul style="display: none;">
                      <li><a href=" {% url 'hr_employees' %} ">All Employees</a></li>
                      <li><a href="holidays.html">Holidays</a></li>
-                     <li><a href="leaves.html">Leaves (Admin) <span
+                     <li><a href="{% url 'hr_leaves' %}">Leaves (Admin) <span
                         class="badge badge-pill bg-primary float-right">1</span></a></li>
                      <li><a href="leaves-employee.html">Leaves (Employee)</a></li>
                      <li><a href="leave-settings.html">Leave Settings</a></li>
@@ -635,7 +635,7 @@
                <div class="page-header">
                   <div class="row">
                      <div class="col-sm-12">
-                        <h3 class="page-title">Admin!</h3>
+                        <h3 class="page-title">{{hr.hid.username}}</h3>
                         <ul class="breadcrumb">
                            <li class="breadcrumb-item active">Dashboard</li>
                         </ul>
@@ -692,13 +692,8 @@
 			<div class="row">
 				<div class="col-lg-12">
 				<div class="card mb-0">
-					<div class="card-body">
-						<div class="row">
-							<div class="col-md-12">
-							<!-- Calendar -->
-							<div id="calendar"></div>
-							</div>
-						</div>
+					<div class="card-body" style="height: 500px;">
+			<!--=================================        BLANK       =====================================  -->
 					</div>
 				</div>
 				</div>

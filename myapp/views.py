@@ -236,12 +236,30 @@ def emp_list(request):
     return render(request,"myapp/emp_list.html",{'data':data}) 
 
 def search_ev_list(request):
-    e_name=request.POST['emp_name']
-    e_id=request.POST['emp_id']
-    print("EMP_NAME:==============================================>",e_name)
-    data=HR_emp.objects.filter(first_name=e_name,id=e_id)
-    print("emp_data:============================================>",data)
-    return render(request,"myapp/emp_list.html",{'emp_data': data}) 
+    if str(request.POST.get('emp_id')) and request.POST.get('emp_name'):
+        emp_name=request.POST['emp_name']
+        emp_id=request.POST['emp_id']
+        data=HR_emp.objects.filter(id=emp_id,first_name=emp_name)
+        return render(request,"myapp/emp_list.html",{'emp_data': data})
+    else:
+        try:
+            if not request.POST['emp_id'] and not request.POST['emp_name']:
+                data=HR_emp.objects.all()
+                print("-----------------------==================Else>")
+                return render(request,"myapp/emp_list.html",{'emp_data': data})
+            elif not request.POST['emp_id'] and request.POST['emp_name']:
+                emp_name=request.POST['emp_name']
+                data=HR_emp.objects.filter(first_name=emp_name)
+                return render(request,"myapp/emp_list.html",{'emp_data': data})
+            elif request.POST['emp_id'] and not request.POST['emp_name']:
+                emp_id=request.POST['emp_id']
+                data=HR_emp.objects.filter(id=emp_id)
+                return render(request,"myapp/emp_list.html",{'emp_data': data})
+            
+        except:
+            data=HR_emp.objects.all()
+            print("-----------------------==================Exception>")
+            return render(request,"myapp/emp_list.html",{'emp_data': data})
 
 
 def edit_profile(request,pk=None):
@@ -342,3 +360,6 @@ def update_hr_profile(request):
             msg2=" Edit HR Successfully!!"
             data=HR.objects.all()
             return render(request,"myapp/hr_profile.html",{'msg2': msg2 , 'data' : data})
+
+def  hr_leaves(request):
+    return render(request,"myapp/hr_leaves.html")
