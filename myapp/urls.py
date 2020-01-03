@@ -46,6 +46,6 @@ urlpatterns = [
     path(r'^hr_form_ev/(?P<pk>\d+)/$',views.hr_form_ev, name='hr_form_ev'),
     path('update_hr_profile/',views.update_hr_profile,name="update_hr_profile"),
     path('hr_leaves/',views.hr_leaves,name="hr_leaves"),
-    
+    path('hr_leaves_ev/',views.hr_leaves_ev,name="hr_leaves_ev"),
     ]
 

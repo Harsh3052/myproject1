@@ -27,3 +27,10 @@ class HR_emp(models.Model):
     designation = models.CharField(max_length=30)
     profile_pic=models.FileField(upload_to='myapp/assets/img/',default='emp.jpg')
     otp = models.IntegerField(default = 459)
+
+
+class HR_leave(models.Model):
+    leave_type = models.CharField(max_length=30)
+    date_start = models.CharField(max_length=30)  
+    date_end = models.CharField(max_length = 20)
+    leave_reason = models.EmailField(max_length=50)

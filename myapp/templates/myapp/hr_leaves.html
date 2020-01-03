@@ -1145,39 +1145,40 @@
 								</button>
 							</div>
 							<div class="modal-body">
-								<form>
+								<form method="POST" action="{% url 'hr_leaves_ev' %}">
+									{% csrf_token %}
 									<div class="form-group">
 										<label>Leave Type <span class="text-danger">*</span></label>
-										<select class="select">
-											<option>Select Leave Type</option>
-											<option>Casual Leave 12 Days</option>
-											<option>Medical Leave</option>
-											<option>Loss of Pay</option>
+										<select class="select" value=""  name="leave_type" id="leave_type" required>
+											<option value="">Select Leave Type</option>
+											<option value="">Casual Leave </option>
+											<option value="">Medical Leave</option>
+											<option value="">Loss of Pay</option>
 										</select>
 									</div>
 									<div class="form-group">
-										<label>From <span class="text-danger">*</span></label>
+										<label >From <span class="text-danger">*</span></label>
 										<div class="cal-icon">
-											<input class="form-control datetimepicker" type="text">
+											<input class="form-control datetimepicker"  type="text" name="date_start" id="date_start"  onchange="checkDate()"  required >
 										</div>
 									</div>
 									<div class="form-group">
-										<label>To <span class="text-danger">*</span></label>
+										<label >To <span class="text-danger">*</span></label>
 										<div class="cal-icon">
-											<input class="form-control datetimepicker" type="text">
+											<input class="form-control datetimepicker"  type="text" id="date_end" name="date_end" >
 										</div>
 									</div>
 									<div class="form-group">
 										<label>Number of days <span class="text-danger">*</span></label>
-										<input class="form-control" readonly="" type="text">
+										<input class="form-control" readonly="" type="text" required>
 									</div>
 									<div class="form-group">
 										<label>Remaining Leaves <span class="text-danger">*</span></label>
-										<input class="form-control" readonly="" value="12" type="text">
+										<input class="form-control" readonly="" value="12" type="text" required>
 									</div>
 									<div class="form-group">
 										<label>Leave Reason <span class="text-danger">*</span></label>
-										<textarea rows="4" class="form-control"></textarea>
+										<textarea rows="4" class="form-control" id="leave_reason" name="leave_reason" required></textarea>
 									</div>
 									<div class="submit-section">
 										<button class="btn btn-primary submit-btn">Submit</button>
@@ -1321,6 +1322,17 @@
 
 		<!-- Custom JS -->
 		<script src="{% static 'myapp\assets\js\app.js' %}"></script>
+		
+			<script language="javascript">
+    $(document).ready(function () {
+        $("#date_start").datepicker({
+            minDate: 0
+        });
+    });
+</script>
+	
+	</script>	
+		
 		
     </body>
 </html>

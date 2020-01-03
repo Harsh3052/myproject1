@@ -3,6 +3,8 @@ from .models import *
 from random import *
 from django.core.mail import send_mail
 import re
+from datetime import datetime 
+from datetime import date
 
 # Create your views here.
 def index(request):   
@@ -362,4 +364,20 @@ def update_hr_profile(request):
             return render(request,"myapp/hr_profile.html",{'msg2': msg2 , 'data' : data})
 
 def  hr_leaves(request):
+    return render(request,"myapp/hr_leaves.html")
+
+def  hr_leaves_ev(request):
+    leave_type=request.POST["leave_type"]
+    s1=request.POST["date_start"]
+    print("DATE=======================================>",s1)
+    dt_obj = datetime.strptime(s1,'%d/%m/%Y')
+    date_start = datetime.strftime(dt_obj,'%Y-%m-%d %H:%M:%S')
+    s2=request.POST["date_end"]
+    dt_obj1 = datetime.strptime(s2,'%d/%m/%Y')
+    date_end = datetime.strftime(dt_obj1,'%Y-%m-%d %H:%M:%S')
+    day=abs(dt_obj1-dt_obj)
+    print("DAYS===========================>",day.days)
+    leave_reason= request.POST["leave_reason"]
+    print("DATE=======================================>",date_start)
+    insert=HR_leave.objects.create(leave_type=leave_type,date_start=date_start,date_end=date_end,leave_reason=leave_reason)    
     return render(request,"myapp/hr_leaves.html")
