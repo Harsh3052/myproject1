@@ -46,6 +46,10 @@ urlpatterns = [
     path(r'^hr_form_ev/(?P<pk>\d+)/$',views.hr_form_ev, name='hr_form_ev'),
     path('update_hr_profile/',views.update_hr_profile,name="update_hr_profile"),
     path('hr_leaves/',views.hr_leaves,name="hr_leaves"),
+    path('hr_add_leaves/',views.hr_add_leaves,name="hr_add_leaves"),
     path('hr_leaves_ev/',views.hr_leaves_ev,name="hr_leaves_ev"),
+    path(r'^delete_hr_leave/(?P<pk>\d+)/$', views.delete_hr_leave, name='delete_hr_leave'),
+    path('edit_hr_leave_ev/',views.edit_hr_leave_ev,name='edit_hr_leave_ev'),
+    path(r'^edit_hr_leave/(?P<pk>\d+)/$', views.edit_hr_leave, name='edit_hr_leave'),
     ]
 

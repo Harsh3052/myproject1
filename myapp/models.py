@@ -34,3 +34,5 @@ class HR_leave(models.Model):
     date_start = models.CharField(max_length=30)  
     date_end = models.CharField(max_length = 20)
     leave_reason = models.EmailField(max_length=50)
+    no_day = models.CharField(max_length=20)
+    hr_nm=models.CharField(max_length=50,default='')
