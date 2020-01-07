@@ -485,5 +485,16 @@ def hr_status(request , pk=None):
         return render(request, "myapp/hr_status.html", {'hr_st_info': hr_st_info})
     else :
         msg2="Can Not Change Status"
-        status_info = HR_leave.objects.all()
-        return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'status_info': status_info })
+        leave_info = HR_leave.objects.all()
+        return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info })
+
+def hr_status_ev(request):
+    id = request.POST['id']
+    leave_status=request.POST['leave_status']
+    uid = HR_leave.objects.get(id=id)
+    if uid:
+        uid.hr_lv_status= leave_status
+        uid.save()
+        msg2 = " Edit Status Successfully!!"
+        leave_info = HR_leave.objects.all()
+        return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info})

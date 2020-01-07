@@ -728,15 +728,23 @@
 											<td>{{item.no_day}}</td>
 											<td>{{item.leave_reason}}</td>
 											<!-- <td class="text-center"> -->
-											<td style="color:green;">{{item.hr_lv_status}}</td>
+												{% if item.hr_lv_status == "pending" %}
+												<td style="color:royalblue;">{{item.hr_lv_status}}</td>
+												{% endif %}
+												{% if item.hr_lv_status == "Approve" %}
+												<td style="color: green;">{{item.hr_lv_status}}</td>
+												{% endif %}
+												{% if item.hr_lv_status == "Decline" %}
+												<td style="color: red;">{{item.hr_lv_status}}</td>
+												{% endif %}
 											</td>
 											<td class="text-right">
 												<div class="dropdown dropdown-action">
 													<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
 													<div class="dropdown-menu dropdown-menu-right">
-														<a class="dropdown-item" style="color: darkred;" data-toggle="modal" data-target="#approve_leave" href="{% url 'hr_status' pk=item.id %}" ><i class="fa fa-bars m-r-5"></i> Status</a>
-														<a class="dropdown-item" href="{% url 'edit_hr_leave' pk=item.id %}" ><i class="fa fa-pencil m-r-5"></i> Edit</a>
-														<a class="dropdown-item" href="{% url 'delete_hr_leave' pk=item.id %}" ><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+														<a class="dropdown-item" style="color : dodgerblue ;"  href="{% url 'hr_status' pk=item.id %}" ><i class="fa fa-bars m-r-5"></i> Status</a>
+														<a class="dropdown-item" style="color:darkorange;" href="{% url 'edit_hr_leave' pk=item.id %}" ><i class="fa fa-pencil m-r-5"></i> Edit</a>
+														<a class="dropdown-item" style="color: red;" href="{% url 'delete_hr_leave' pk=item.id %}" ><i class="fa fa-trash-o m-r-5"></i> Delete</a>
 													</div>
 												</div>
 											</td>
@@ -947,17 +955,18 @@
 		<!-- Custom JS -->
 		<script src="{% static 'myapp\assets\js\app.js' %}"></script>
 		
-		<script type="text/javascript">
-			$(function() {
-			$('#date_start').datetimepicker({ 
-				minDate: 0 ,
-				language: 'en',
-				pick12HourFormat: true
-			});
-			});
+		<script>
+			function f_color(){
+			if (document.getElementById('EditRecordnote').value = 'Pending') {
+			document.getElementById('EditRecordnote').style.color = "green";
+			}
+			else (document.getElementById('EditRecordnote').value = 'Approve') {
+			document.getElementById('EditRecordnote').style.color = "green";
+			}
+			
+			}
+			f_color();
 			</script>
-	
-	</script>	
 		
 		
     </body>
