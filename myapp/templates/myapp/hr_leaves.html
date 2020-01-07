@@ -727,23 +727,14 @@
 											<td>{{item.date_end}}</td>
 											<td>{{item.no_day}}</td>
 											<td>{{item.leave_reason}}</td>
-											<td class="text-center">
-												<div class="dropdown action-label">
-													<a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-														<i class="fa fa-dot-circle-o text-purple"></i> New
-													</a>
-													<div class="dropdown-menu dropdown-menu-right">
-														<a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-purple"></i> New</a>
-														<a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-info"></i> Pending</a>
-														<a class="dropdown-item" href="#" data-toggle="modal" data-target="#approve_leave"><i class="fa fa-dot-circle-o text-success"></i> Approved</a>
-														<a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> Declined</a>
-													</div>
-												</div>
+											<!-- <td class="text-center"> -->
+											<td style="color:green;">{{item.hr_lv_status}}</td>
 											</td>
 											<td class="text-right">
 												<div class="dropdown dropdown-action">
 													<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
 													<div class="dropdown-menu dropdown-menu-right">
+														<a class="dropdown-item" style="color: darkred;" data-toggle="modal" data-target="#approve_leave" href="{% url 'hr_status' pk=item.id %}" ><i class="fa fa-bars m-r-5"></i> Status</a>
 														<a class="dropdown-item" href="{% url 'edit_hr_leave' pk=item.id %}" ><i class="fa fa-pencil m-r-5"></i> Edit</a>
 														<a class="dropdown-item" href="{% url 'delete_hr_leave' pk=item.id %}" ><i class="fa fa-trash-o m-r-5"></i> Delete</a>
 													</div>
@@ -876,11 +867,17 @@
 						<div class="modal-content">
 							<div class="modal-body">
 								<div class="form-header">
-									<h3>Leave Approve</h3>
+									<h3>Leave Status</h3>
 									<p>Are you sure want to approve for this leave?</p>
 								</div>
 								<div class="modal-btn delete-action">
-									<div class="row">
+									<div class="row">	
+										<div class="col-6">
+											<a href="javascript:void(0);" class="btn btn-primary continue-btn">New</a>
+										</div>
+										<div class="col-6">
+											<a href="javascript:void(0);" class="btn btn-primary continue-btn">Pending</a>
+										</div>
 										<div class="col-6">
 											<a href="javascript:void(0);" class="btn btn-primary continue-btn">Approve</a>
 										</div>

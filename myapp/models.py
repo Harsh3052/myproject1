@@ -36,3 +36,4 @@ class HR_leave(models.Model):
     leave_reason = models.EmailField(max_length=50)
     no_day = models.CharField(max_length=20)
     hr_nm=models.CharField(max_length=50,default='')
+    hr_lv_status=models.CharField(max_length=50,default='pending')

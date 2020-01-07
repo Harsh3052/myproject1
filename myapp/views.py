@@ -428,18 +428,27 @@ def hr_leaves_ev(request):
         return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info})
 
 def delete_hr_leave(request, pk=None):
-    HR_leave.objects.filter(id=pk).delete()
-    msg2="Delete Leave Successfully"
-    leave_info = HR_leave.objects.all()
-    return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info })
+    hr_lv_info = HR_leave.objects.get(id=pk)
+    if hr_lv_info.hr_nm == request.session['hr_first_name'] :
+        HR_leave.objects.filter(id=pk).delete()
+        msg2="Delete Leave Successfully"
+        leave_info = HR_leave.objects.all()
+        return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info })
+    else :
+        msg2="Can Not Delete This User"
+        leave_info = HR_leave.objects.all()
+        return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info })
 
 def edit_hr_leave(request , pk=None):
     hr_lv_info = HR_leave.objects.get(id=pk)
-    return render(request, "myapp/edit_hr_leave.html", {'hr_lv_info': hr_lv_info})
-    # else :
-    #     msg2="Can Not Edit This User"
-    #     leave_info = HR_leave.objects.all()
-    #     return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info })
+    print("========================================>HR_LEAVE_INFO",hr_lv_info.hr_nm)
+    print("========================================>Session_ID",request.session['hr_first_name'])
+    if hr_lv_info.hr_nm == request.session['hr_first_name'] :
+        return render(request, "myapp/edit_hr_leave.html", {'hr_lv_info': hr_lv_info})
+    else :
+        msg2="Can Not Edit This User"
+        leave_info = HR_leave.objects.all()
+        return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info })
     
 def edit_hr_leave_ev(request):
     id = request.POST['id']
@@ -468,3 +477,13 @@ def edit_hr_leave_ev(request):
         msg2 = " Edit Leave Successfully!!"
         leave_info = HR_leave.objects.all()
         return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info})
+
+
+def hr_status(request , pk=None):
+    hr_st_info = HR_leave.objects.get(id=pk)
+    if hr_st_info.hr_nm != request.session['hr_first_name'] :
+        return render(request, "myapp/hr_status.html", {'hr_st_info': hr_st_info})
+    else :
+        msg2="Can Not Change Status"
+        status_info = HR_leave.objects.all()
+        return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'status_info': status_info })

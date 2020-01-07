@@ -622,7 +622,7 @@
 									{% csrf_token %}
 									<div class="form-group">
 										<label>Leave Type <span class="text-danger">*</span></label>
-										<select class="select"   name="leave_type" id="leave_type" required>
+										<select class="select" name="leave_type" id="leave_type" required>
 											<option value="">Select Leave Type</option>
 											<option value="Casual Leave">Casual Leave </option>
 											<option value="Medical Leave">Medical Leave</option>
@@ -634,13 +634,13 @@
 										<div class="cal-icon">
                                             <input class="form-control" name="id" id="id" value="{{hr_lv_info.id}}" type="hidden" required >        
 
-											<input class="form-control datetimepicker" value="{{hr_lv_info.date_start}}" type="text" name="date_start" id="date_start"  onchange="checkDate()"  required >
+											<input class="form-control datetimepicker" placeholder="{{hr_lv_info.date_start}}" type="text" name="date_start" id="date_start" required >
 										</div>
 									</div>
 									<div class="form-group">
 										<label >To <span class="text-danger">*</span></label>
 										<div class="cal-icon">
-											<input class="form-control datetimepicker"  type="text" id="date_end" name="date_end" value="{{hr_lv_info.date_end}}" >
+											<input class="form-control datetimepicker"  type="text" id="date_end" name="date_end" placeholder="{{hr_lv_info.date_end}}" >
 										</div>
 									</div>
 									<div class="form-group" hidden>
