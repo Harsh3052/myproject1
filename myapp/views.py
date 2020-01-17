@@ -386,8 +386,18 @@ def update_hr_profile(request):
 
 
 def hr_leaves(request):
+    total_pending=HR_leave.objects.filter(hr_lv_status="pending").count()
+    approved=HR_leave.objects.filter(hr_lv_status="Approve",hr_nm=request.session['hr_first_name']).count()
+    declined=HR_leave.objects.filter(hr_lv_status="Decline",hr_nm=request.session['hr_first_name']).count()
+    pending=HR_leave.objects.filter(hr_lv_status="pending",hr_nm=request.session['hr_first_name']).count()
+    totals={
+        "total_pending": total_pending,
+        "approved":approved,
+        "declined":declined,
+        "pending":pending
+    }
     leave_info = HR_leave.objects.filter(hr_lv_status="pending")
-    return render(request, "myapp/hr_leaves.html", {'leave_info': leave_info})
+    return render(request, "myapp/hr_leaves.html", {'leave_info': leave_info , 'totals':totals})
 
 
 def hr_add_leaves(request):
@@ -425,7 +435,17 @@ def hr_leaves_ev(request):
         msg2 = " Leave Add Successfully"
         leave_info = HR_leave.objects.filter(hr_lv_status='pending')
         # hrid=HR.objects.get(id=request.session['id'])
-        return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info})
+        total_pending=HR_leave.objects.filter(hr_lv_status="pending").count()
+        approved=HR_leave.objects.filter(hr_lv_status="Approve",hr_nm=request.session['hr_first_name']).count()
+        declined=HR_leave.objects.filter(hr_lv_status="Decline",hr_nm=request.session['hr_first_name']).count()
+        pending=HR_leave.objects.filter(hr_lv_status="pending",hr_nm=request.session['hr_first_name']).count()
+        totals={
+            "total_pending": total_pending,
+            "approved":approved,
+            "declined":declined,
+            "pending":pending
+        }
+        return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info, 'totals':totals})
 
 def delete_hr_leave(request, pk=None):
     hr_lv_info = HR_leave.objects.get(id=pk)
@@ -433,11 +453,31 @@ def delete_hr_leave(request, pk=None):
         HR_leave.objects.filter(id=pk).delete()
         msg2="Delete Leave Successfully"
         leave_info = HR_leave.objects.filter(hr_lv_status="pending")
-        return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info })
+        total_pending=HR_leave.objects.filter(hr_lv_status="pending").count()
+        approved=HR_leave.objects.filter(hr_lv_status="Approve",hr_nm=request.session['hr_first_name']).count()
+        declined=HR_leave.objects.filter(hr_lv_status="Decline",hr_nm=request.session['hr_first_name']).count()
+        pending=HR_leave.objects.filter(hr_lv_status="pending",hr_nm=request.session['hr_first_name']).count()
+        totals={
+            "total_pending": total_pending,
+            "approved":approved,
+            "declined":declined,
+            "pending":pending
+        }
+        return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info , 'totals':totals})
     else :
         msg2="Can Not Delete This User"
         leave_info = HR_leave.objects.filter(hr_lv_status="pending")
-        return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info })
+        total_pending=HR_leave.objects.filter(hr_lv_status="pending").count()
+        approved=HR_leave.objects.filter(hr_lv_status="Approve",hr_nm=request.session['hr_first_name']).count()
+        declined=HR_leave.objects.filter(hr_lv_status="Decline",hr_nm=request.session['hr_first_name']).count()
+        pending=HR_leave.objects.filter(hr_lv_status="pending",hr_nm=request.session['hr_first_name']).count()
+        totals={
+            "total_pending": total_pending,
+            "approved":approved,
+            "declined":declined,
+            "pending":pending
+        }
+        return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info , 'totals':totals })
 
 def edit_hr_leave(request , pk=None):
     hr_lv_info = HR_leave.objects.get(id=pk)
@@ -448,7 +488,17 @@ def edit_hr_leave(request , pk=None):
     else :
         msg2="Can Not Edit This User"
         leave_info = HR_leave.objects.filter(hr_lv_status="pending")
-        return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info })
+        total_pending=HR_leave.objects.filter(hr_lv_status="pending").count()
+        approved=HR_leave.objects.filter(hr_lv_status="Approve",hr_nm=request.session['hr_first_name']).count()
+        declined=HR_leave.objects.filter(hr_lv_status="Decline",hr_nm=request.session['hr_first_name']).count()
+        pending=HR_leave.objects.filter(hr_lv_status="pending",hr_nm=request.session['hr_first_name']).count()
+        totals={
+            "total_pending": total_pending,
+            "approved":approved,
+            "declined":declined,
+            "pending":pending
+        }
+        return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info , 'totals':totals})
     
 def edit_hr_leave_ev(request):
     id = request.POST['id']
@@ -476,7 +526,17 @@ def edit_hr_leave_ev(request):
         uid.save()
         msg2 = " Edit Leave Successfully!!"
         leave_info = HR_leave.objects.filter(hr_lv_status="pending")
-        return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info})
+        total_pending=HR_leave.objects.filter(hr_lv_status="pending").count()
+        approved=HR_leave.objects.filter(hr_lv_status="Approve",hr_nm=request.session['hr_first_name']).count()
+        declined=HR_leave.objects.filter(hr_lv_status="Decline",hr_nm=request.session['hr_first_name']).count()
+        pending=HR_leave.objects.filter(hr_lv_status="pending",hr_nm=request.session['hr_first_name']).count()
+        totals={
+            "total_pending": total_pending,
+            "approved":approved,
+            "declined":declined,
+            "pending":pending
+        }
+        return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info , 'totals':totals})
 
 
 def hr_status(request , pk=None):
@@ -486,7 +546,17 @@ def hr_status(request , pk=None):
     else :
         msg2="Can Not Change Status"
         leave_info = HR_leave.objects.filter(hr_lv_status="pending")
-        return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info })
+        total_pending=HR_leave.objects.filter(hr_lv_status="pending").count()
+        approved=HR_leave.objects.filter(hr_lv_status="Approve",hr_nm=request.session['hr_first_name']).count()
+        declined=HR_leave.objects.filter(hr_lv_status="Decline",hr_nm=request.session['hr_first_name']).count()
+        pending=HR_leave.objects.filter(hr_lv_status="pending",hr_nm=request.session['hr_first_name']).count()
+        totals={
+            "total_pending": total_pending,
+            "approved":approved,
+            "declined":declined,
+            "pending":pending
+        }
+        return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info , 'totals':totals})
 
 def hr_status_ev(request):
     id = request.POST['id']
@@ -497,22 +567,58 @@ def hr_status_ev(request):
         uid.save()
         msg2 = " Edit Status Successfully!!"
         leave_info = HR_leave.objects.filter(hr_lv_status="pending")
-        return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info})
+        total_pending=HR_leave.objects.filter(hr_lv_status="pending").count()
+        approved=HR_leave.objects.filter(hr_lv_status="Approve",hr_nm=request.session['hr_first_name']).count()
+        declined=HR_leave.objects.filter(hr_lv_status="Decline",hr_nm=request.session['hr_first_name']).count()
+        pending=HR_leave.objects.filter(hr_lv_status="pending",hr_nm=request.session['hr_first_name']).count()
+        totals={
+            "total_pending": total_pending,
+            "approved":approved,
+            "declined":declined,
+            "pending":pending
+        }
+        return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info ,'totals':totals})
 
 def search_leave(request):
     if request.POST.get('status_type'):
         status = request.POST['status_type']
-        print("-----------------------==================STATUS>",status)
         leave_data = HR_leave.objects.filter(hr_lv_status=status)
-        print("-----------------------==================Leave_Data>",leave_data)
-        return render(request, "myapp/hr_leaves.html", {'leave_data': leave_data})
+        total_pending=HR_leave.objects.filter(hr_lv_status="pending").count()
+        approved=HR_leave.objects.filter(hr_lv_status="Approve",hr_nm=request.session['hr_first_name']).count()
+        declined=HR_leave.objects.filter(hr_lv_status="Decline",hr_nm=request.session['hr_first_name']).count()
+        pending=HR_leave.objects.filter(hr_lv_status="pending",hr_nm=request.session['hr_first_name']).count()
+        totals={
+            "total_pending": total_pending,
+            "approved":approved,
+            "declined":declined,
+            "pending":pending
+        }
+        return render(request, "myapp/hr_leaves.html", {'leave_data': leave_data , 'totals':totals})
     else:
         try:
             if not request.POST['status_type']:
                 leave_data = HR_leave.objects.filter(hr_lv_status="pending")
-                print("-----------------------==================Else>")
-                return render(request, "myapp/hr_leaves.html", {'leave_data': leave_data})
+                total_pending=HR_leave.objects.filter(hr_lv_status="pending").count()
+                approved=HR_leave.objects.filter(hr_lv_status="Approve",hr_nm=request.session['hr_first_name']).count()
+                declined=HR_leave.objects.filter(hr_lv_status="Decline",hr_nm=request.session['hr_first_name']).count()
+                pending=HR_leave.objects.filter(hr_lv_status="pending",hr_nm=request.session['hr_first_name']).count()
+                totals={
+                    "total_pending": total_pending,
+                    "approved":approved,
+                    "declined":declined,
+                    "pending":pending
+                }
+                return render(request, "myapp/hr_leaves.html", {'leave_data': leave_data , 'totals':totals})
         except:
             leave_data = HR_leave.objects.filter(hr_lv_status="pending")
-            print("-----------------------==================Exception>")
-            return render(request, "myapp/hr_leaves.html", {'leave_data': leave_data})
+            total_pending=HR_leave.objects.filter(hr_lv_status="pending").count()
+            approved=HR_leave.objects.filter(hr_lv_status="Approve",hr_nm=request.session['hr_first_name']).count()
+            declined=HR_leave.objects.filter(hr_lv_status="Decline",hr_nm=request.session['hr_first_name']).count()
+            pending=HR_leave.objects.filter(hr_lv_status="pending",hr_nm=request.session['hr_first_name']).count()
+            totals={
+                "total_pending": total_pending,
+                "approved":approved,
+                "declined":declined,
+                "pending":pending
+            }
+            return render(request, "myapp/hr_leaves.html", {'leave_data': leave_data , 'totals':totals})
