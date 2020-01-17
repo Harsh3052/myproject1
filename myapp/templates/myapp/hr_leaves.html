@@ -644,6 +644,8 @@
 					<!-- /Leave Statistics -->
 					
 					<!-- Search Filter -->
+					<form action="{% url 'search_leave' %}" method="POST">
+						{% csrf_token %}
 					<div class="row filter-row">
 					   <!-- <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">  
 							<div class="form-group form-focus">
@@ -664,18 +666,18 @@
 					   </div> -->
 					   <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12"> 
 							<div class="form-group form-focus select-focus">
-								<select class="select floating"> 
-									<option> -- Select -- </option>
-									<option> Pending </option>
-									<option> Approved </option>
-									<option> Rejected </option>
+								<select class="select floating"  name="status_type" id="status_type"> 
+									<option value=""> -- Select -- </option>
+									
+									<option value="Approve"> Approved </option>
+									<option value="Decline"> Decline</option>
 								</select>
 								<label class="focus-label">Leave Status</label>
 							</div>
 					   </div>
 					   
 					   <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">  
-							<a href="#" class="btn btn-success btn-block"> Search </a>  
+						<button class="btn btn-success btn-block"> Search</button>
 					   </div>     
                     </div>
 					<!-- /Search Filter -->
@@ -738,6 +740,50 @@
 										{% endfor %}
 									
 									</tbody>
+									
+								<!-- =====================================================================?>>>>>>>>>	 -->
+
+								<tbody>
+										
+									<tr>
+										{% for item in leave_data %}
+										<td>
+											<h2 class="table-avatar">
+												<a href="profile.html">{{item.hr_nm}}</a>
+											</h2>
+										</td>
+										<td>{{item.leave_type}}</td>
+										<td>{{item.date_start}}</td>
+										<td>{{item.date_end}}</td>
+										<td>{{item.no_day}}</td>
+										<td>{{item.leave_reason}}</td>
+										<!-- <td class="text-center"> -->
+											{% if item.hr_lv_status == "pending" %}
+											<td style="color:royalblue;">{{item.hr_lv_status}}</td>
+											{% endif %}
+											{% if item.hr_lv_status == "Approve" %}
+											<td style="color: green;">{{item.hr_lv_status}}</td>
+											{% endif %}
+											{% if item.hr_lv_status == "Decline" %}
+											<td style="color: red;">{{item.hr_lv_status}}</td>
+											{% endif %}
+										</td>
+										<td class="text-right">
+											<div class="dropdown dropdown-action">
+												<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+												<div class="dropdown-menu dropdown-menu-right" >
+													<!-- <a class="dropdown-item" style="color : dodgerblue ;"  href="{% url 'hr_status' pk=item.id %}" ><i class="fa fa-bars m-r-5" ></i> Status</a>
+													<a class="dropdown-item" style="color:darkorange;" href="{% url 'edit_hr_leave' pk=item.id %}" ><i class="fa fa-pencil m-r-5"></i> Edit</a>
+													<a class="dropdown-item" style="color: red;" href="{% url 'delete_hr_leave' pk=item.id %}" ><i class="fa fa-trash-o m-r-5"></i> Delete</a> -->
+												</div>
+											</div>
+										</td>
+										
+									</tr>
+									{% endfor %}
+								
+								</tbody>
+
 								</table>
 							</div>
 						</div>

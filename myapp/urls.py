@@ -53,5 +53,6 @@ urlpatterns = [
     path(r'^edit_hr_leave/(?P<pk>\d+)/$', views.edit_hr_leave, name='edit_hr_leave'),
     path(r'^hr_status/(?P<pk>\d+)/$', views.hr_status, name='hr_status'),
     path('hr_status_ev/',views.hr_status_ev,name='hr_status_ev'),
+    path('search_leave/',views.search_leave,name='search_leave'),
     ]
 

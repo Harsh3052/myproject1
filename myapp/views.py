@@ -386,7 +386,7 @@ def update_hr_profile(request):
 
 
 def hr_leaves(request):
-    leave_info = HR_leave.objects.all()
+    leave_info = HR_leave.objects.filter(hr_lv_status="pending")
     return render(request, "myapp/hr_leaves.html", {'leave_info': leave_info})
 
 
@@ -423,7 +423,7 @@ def hr_leaves_ev(request):
         insert = HR_leave.objects.create(leave_type=leave_type, date_start=date_start,
         date_end=date_end, leave_reason=leave_reason, no_day=no_day, hr_nm=hr_nm)
         msg2 = " Leave Add Successfully"
-        leave_info = HR_leave.objects.all()
+        leave_info = HR_leave.objects.filter(hr_lv_status='pending')
         # hrid=HR.objects.get(id=request.session['id'])
         return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info})
 
@@ -432,11 +432,11 @@ def delete_hr_leave(request, pk=None):
     if hr_lv_info.hr_nm == request.session['hr_first_name'] :
         HR_leave.objects.filter(id=pk).delete()
         msg2="Delete Leave Successfully"
-        leave_info = HR_leave.objects.all()
+        leave_info = HR_leave.objects.filter(hr_lv_status="pending")
         return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info })
     else :
         msg2="Can Not Delete This User"
-        leave_info = HR_leave.objects.all()
+        leave_info = HR_leave.objects.filter(hr_lv_status="pending")
         return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info })
 
 def edit_hr_leave(request , pk=None):
@@ -447,7 +447,7 @@ def edit_hr_leave(request , pk=None):
         return render(request, "myapp/edit_hr_leave.html", {'hr_lv_info': hr_lv_info})
     else :
         msg2="Can Not Edit This User"
-        leave_info = HR_leave.objects.all()
+        leave_info = HR_leave.objects.filter(hr_lv_status="pending")
         return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info })
     
 def edit_hr_leave_ev(request):
@@ -475,7 +475,7 @@ def edit_hr_leave_ev(request):
         uid.no_day=no_day
         uid.save()
         msg2 = " Edit Leave Successfully!!"
-        leave_info = HR_leave.objects.all()
+        leave_info = HR_leave.objects.filter(hr_lv_status="pending")
         return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info})
 
 
@@ -485,7 +485,7 @@ def hr_status(request , pk=None):
         return render(request, "myapp/hr_status.html", {'hr_st_info': hr_st_info})
     else :
         msg2="Can Not Change Status"
-        leave_info = HR_leave.objects.all()
+        leave_info = HR_leave.objects.filter(hr_lv_status="pending")
         return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info })
 
 def hr_status_ev(request):
@@ -496,5 +496,23 @@ def hr_status_ev(request):
         uid.hr_lv_status= leave_status
         uid.save()
         msg2 = " Edit Status Successfully!!"
-        leave_info = HR_leave.objects.all()
+        leave_info = HR_leave.objects.filter(hr_lv_status="pending")
         return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info})
+
+def search_leave(request):
+    if request.POST.get('status_type'):
+        status = request.POST['status_type']
+        print("-----------------------==================STATUS>",status)
+        leave_data = HR_leave.objects.filter(hr_lv_status=status)
+        print("-----------------------==================Leave_Data>",leave_data)
+        return render(request, "myapp/hr_leaves.html", {'leave_data': leave_data})
+    else:
+        try:
+            if not request.POST['status_type']:
+                leave_data = HR_leave.objects.filter(hr_lv_status="pending")
+                print("-----------------------==================Else>")
+                return render(request, "myapp/hr_leaves.html", {'leave_data': leave_data})
+        except:
+            leave_data = HR_leave.objects.filter(hr_lv_status="pending")
+            print("-----------------------==================Exception>")
+            return render(request, "myapp/hr_leaves.html", {'leave_data': leave_data})
