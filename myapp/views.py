@@ -541,7 +541,7 @@ def edit_hr_leave_ev(request):
 
 def hr_status(request , pk=None):
     hr_st_info = HR_leave.objects.get(id=pk)
-    if hr_st_info.hr_nm != request.session['hr_first_name'] :
+    if hr_st_info.hr_nm != request.session['hr_first_name']:
         return render(request, "myapp/hr_status.html", {'hr_st_info': hr_st_info})
     else :
         msg2="Can Not Change Status"
@@ -594,31 +594,4 @@ def search_leave(request):
             "pending":pending
         }
         return render(request, "myapp/hr_leaves.html", {'leave_data': leave_data , 'totals':totals})
-    else:
-        try:
-            if not request.POST['status_type']:
-                leave_data = HR_leave.objects.filter(hr_lv_status="pending")
-                total_pending=HR_leave.objects.filter(hr_lv_status="pending").count()
-                approved=HR_leave.objects.filter(hr_lv_status="Approve",hr_nm=request.session['hr_first_name']).count()
-                declined=HR_leave.objects.filter(hr_lv_status="Decline",hr_nm=request.session['hr_first_name']).count()
-                pending=HR_leave.objects.filter(hr_lv_status="pending",hr_nm=request.session['hr_first_name']).count()
-                totals={
-                    "total_pending": total_pending,
-                    "approved":approved,
-                    "declined":declined,
-                    "pending":pending
-                }
-                return render(request, "myapp/hr_leaves.html", {'leave_data': leave_data , 'totals':totals})
-        except:
-            leave_data = HR_leave.objects.filter(hr_lv_status="pending")
-            total_pending=HR_leave.objects.filter(hr_lv_status="pending").count()
-            approved=HR_leave.objects.filter(hr_lv_status="Approve",hr_nm=request.session['hr_first_name']).count()
-            declined=HR_leave.objects.filter(hr_lv_status="Decline",hr_nm=request.session['hr_first_name']).count()
-            pending=HR_leave.objects.filter(hr_lv_status="pending",hr_nm=request.session['hr_first_name']).count()
-            totals={
-                "total_pending": total_pending,
-                "approved":approved,
-                "declined":declined,
-                "pending":pending
-            }
-            return render(request, "myapp/hr_leaves.html", {'leave_data': leave_data , 'totals':totals})
+    

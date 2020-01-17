@@ -666,9 +666,9 @@
 					   </div> -->
 					   <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12"> 
 							<div class="form-group form-focus select-focus">
-								<select class="select floating"  name="status_type" id="status_type"> 
+								<select class="select floating" required name="status_type" id="status_type"> 
 									<option value=""> -- Select -- </option>
-									
+									<option value="pending"> Pending  </option>
 									<option value="Approve"> Approved </option>
 									<option value="Decline"> Decline</option>
 								</select>
@@ -772,9 +772,9 @@
 											<div class="dropdown dropdown-action">
 												<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
 												<div class="dropdown-menu dropdown-menu-right" >
-													<!-- <a class="dropdown-item" style="color : dodgerblue ;"  href="{% url 'hr_status' pk=item.id %}" ><i class="fa fa-bars m-r-5" ></i> Status</a>
+													<a class="dropdown-item" style="color : dodgerblue ;"  href="{% url 'hr_status' pk=item.id %}" ><i class="fa fa-bars m-r-5" ></i> Status</a>
 													<a class="dropdown-item" style="color:darkorange;" href="{% url 'edit_hr_leave' pk=item.id %}" ><i class="fa fa-pencil m-r-5"></i> Edit</a>
-													<a class="dropdown-item" style="color: red;" href="{% url 'delete_hr_leave' pk=item.id %}" ><i class="fa fa-trash-o m-r-5"></i> Delete</a> -->
+													<a class="dropdown-item" style="color: red;" href="{% url 'delete_hr_leave' pk=item.id %}" ><i class="fa fa-trash-o m-r-5"></i> Delete</a>
 												</div>
 											</div>
 										</td>
