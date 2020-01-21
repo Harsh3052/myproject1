@@ -5,3 +5,4 @@ myproject/__pycache__/**
 *.pyc
 myapp/__pycache__/views.cpython-37.pyc
 HR_Employee/__pycache__/views.cpython-37.pyc
+myapp/__pycache__/views.cpython-37.pyc
