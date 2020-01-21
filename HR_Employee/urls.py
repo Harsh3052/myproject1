@@ -33,6 +33,9 @@ urlpatterns = [
     path('emp_profile/',views.emp_profile, name='emp_profile'),
     path('emp_profile_ev/',views.emp_profile_ev, name='emp_profile_ev'),
     path('update_emp_profile/',views.update_emp_profile, name='update_emp_profile'),
+    path('emp_leave/',views.emp_leave, name='emp_leave'),
+    path('emp_add_leave/',views.emp_add_leave, name='emp_add_leave'),
+
 ]
 
 

@@ -402,6 +402,7 @@ def hr_leaves(request):
 def hr_add_leaves(request):
     return render(request, "myapp/hr_add_leaves.html")
 
+
 def hr_leaves_ev(request):
     leave_type = request.POST["leave_type"]
     s1 = request.POST["date_start"]

@@ -219,3 +219,9 @@ def update_emp_profile(request):
             msg2 = "Exception"
             # empid = HR_emp.objects.all()
             return render(request, "HR_Employee/emp_index.html", {'msg2': msg2, 'empid': empid})
+
+def emp_leave(request):
+    return render(request, "HR_Employee/emp_leave.html")
+
+def emp_add_leave(request):
+    return render(request, "HR_Employee/emp_add_leave.html")
