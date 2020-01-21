@@ -399,10 +399,8 @@ def hr_leaves(request):
     leave_info = HR_leave.objects.filter(hr_lv_status="pending")
     return render(request, "myapp/hr_leaves.html", {'leave_info': leave_info , 'totals':totals})
 
-
 def hr_add_leaves(request):
     return render(request, "myapp/hr_add_leaves.html")
-
 
 def hr_leaves_ev(request):
     leave_type = request.POST["leave_type"]
