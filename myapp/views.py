@@ -449,7 +449,7 @@ def hr_leaves_ev(request):
 
 def delete_hr_leave(request, pk=None):
     hr_lv_info = HR_leave.objects.get(id=pk)
-    if hr_lv_info.hr_nm == request.session['hr_first_name'] :
+    if hr_lv_info.hr_nm == request.session['hr_first_name'] and hr_lv_info.hr_lv_status == "pending":
         HR_leave.objects.filter(id=pk).delete()
         msg2="Delete Leave Successfully"
         leave_info = HR_leave.objects.filter(hr_lv_status="pending")
@@ -483,7 +483,7 @@ def edit_hr_leave(request , pk=None):
     hr_lv_info = HR_leave.objects.get(id=pk)
     print("========================================>HR_LEAVE_INFO",hr_lv_info.hr_nm)
     print("========================================>Session_ID",request.session['hr_first_name'])
-    if hr_lv_info.hr_nm == request.session['hr_first_name'] :
+    if hr_lv_info.hr_nm == request.session['hr_first_name'] and hr_lv_info.hr_lv_status == "pending":
         return render(request, "myapp/edit_hr_leave.html", {'hr_lv_info': hr_lv_info})
     else :
         msg2="Can Not Edit This User"
@@ -541,7 +541,7 @@ def edit_hr_leave_ev(request):
 
 def hr_status(request , pk=None):
     hr_st_info = HR_leave.objects.get(id=pk)
-    if hr_st_info.hr_nm != request.session['hr_first_name']:
+    if hr_st_info.hr_nm != request.session['hr_first_name'] and hr_st_info.hr_lv_status == "pending" :
         return render(request, "myapp/hr_status.html", {'hr_st_info': hr_st_info})
     else :
         msg2="Can Not Change Status"
