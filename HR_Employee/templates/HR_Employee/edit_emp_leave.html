@@ -8,7 +8,7 @@
 		<meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
         <meta name="author" content="Dreamguys - Bootstrap Admin Template">
         <meta name="robots" content="noindex, nofollow">
-        <title>Leaves - HRMS admin template</title>
+        <title>Leaves - HRMS admin template</title> 
 		
 		<!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="{% static 'myapp\assets\img\favicon.png' %}">
@@ -603,9 +603,9 @@
 							</div>
 							
                         </div>
-                        {% if reason.msg %}
+                        {% if msg %}
 								<div class="alert alert-primary" role="alert">
-									{{reason.msg}}
+									{{msg}}
 								</div>
 								{% endif %}
 					</div>
@@ -618,11 +618,11 @@
 				<!-- Add Leave Modal -->
 				
 							<div class="modal-body">
-								<form method="POST" action="{% url 'emp_leave_ev' %}">
+								<form method="POST" action="{% url 'edit_emp_leave_ev' %}">
 									{% csrf_token %}
 									<div class="form-group">
 										<label>Leave Type <span class="text-danger">*</span></label>
-										<select class="select"   name="emp_leave_type" id="emp_leave_type" required>
+										<select class="select" name="emp_leave_type" id="emp_leave_type" required>
 											<option value="">Select Leave Type</option>
 											<option value="Casual Leave">Casual Leave </option>
 											<option value="Medical Leave">Medical Leave</option>
@@ -632,28 +632,30 @@
 									<div class="form-group">
 										<label >From <span class="text-danger">*</span></label>
 										<div class="cal-icon">
-											<input class="form-control datetimepicker"  type="text" name="emp_date_start" id="emp_date_start"  onchange="checkDate()"  required >
+                                            <input class="form-control" name="id" id="id" value="{{emp_lv_info.id}}" type="hidden" required >        
+
+											<input class="form-control datetimepicker" placeholder="{{emp_lv_info.emp_date_start}}" type="text" name="emp_date_start" id="emp_date_start" required  >
 										</div>
 									</div>
 									<div class="form-group">
 										<label >To <span class="text-danger">*</span></label>
 										<div class="cal-icon">
-											<input class="form-control datetimepicker"  type="text" id="emp_date_end" name="emp_date_end" >
+											<input class="form-control datetimepicker"  type="text" id="emp_date_end" name="emp_date_end" placeholder="{{emp_lv_info.emp_date_end}}" >
 										</div>
 									</div>
 									<div class="form-group" hidden>
 										<label>Number of days <span class="text-danger">*</span></label>
-										<input class="form-control" readonly="" type="text" >
+										<input class="form-control" readonly="" type="text"  >
 									</div>
 									<div class="form-group">
 										<label>Remaining Leaves <span class="text-danger">*</span></label>
-										<input class="form-control" readonly="" value="12" type="text" required>
+										<input class="form-control" readonly="" value="12" type="text"  required>
                                     </div>
                                 
 									<div class="form-group">
 										<label>Leave Reason <span class="text-danger">*</span></label>
 										<!-- <textarea rows="4" class="form-control" id="leave_reason" value="{{reason.leave_reason}}" name="leave_reason" required></textarea> -->
-                                        <input maxlength="100" class="form-control"  id="emp_leave_reason" value="{{reason.emp_leave_reason}}" name="emp_leave_reason" required >
+                                        <input maxlength="100" class="form-control"  id="emp_leave_reason" value="{{emp_lv_info.emp_leave_reason}}" name="emp_leave_reason" required >
                                     </div>
                                     
 									<div class="submit-section">

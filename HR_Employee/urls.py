@@ -35,7 +35,10 @@ urlpatterns = [
     path('update_emp_profile/',views.update_emp_profile, name='update_emp_profile'),
     path('emp_leave/',views.emp_leave, name='emp_leave'),
     path('emp_add_leave/',views.emp_add_leave, name='emp_add_leave'),
-
+    path('emp_leave_ev/',views.emp_leave_ev, name='emp_leave_ev'),
+    path(r'^delete_emp_leave/(?P<pk>\d+)/$', views.delete_emp_leave, name='delete_emp_leave'),
+    path('edit_emp_leave_ev/',views.edit_emp_leave_ev,name='edit_emp_leave_ev'),
+    path(r'^edit_emp_leave/(?P<pk>\d+)/$', views.edit_emp_leave, name='edit_emp_leave'),
 ]
 
 
