@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import *
 from random import *
+from HR_Employee.models import emp_leaves
 from django.core.mail import send_mail
 import re
 from datetime import datetime
@@ -12,11 +13,12 @@ from datetime import date
 def index(request):
     total_emp = HR_emp.objects.all().count()
     hid = HR.objects.get(id=request.session['id'])
+    leave_info = emp_leaves.objects.filter(emp_hr_lv_status='pending')
     hr = {
         "num_emp": total_emp,
         "hid": hid
     }
-    return render(request, "myapp/index.html", {'hr': hr})
+    return render(request, "myapp/index.html", {'hr': hr , 'leave_info': leave_info })
 
 
 def events(request):
@@ -40,7 +42,7 @@ def hr_login_evalute(request):
                 request.session['id'] = uid.id
                 request.session['email'] = uid.email
                 request.session['hr_first_name'] = uid.hr_first_name
-                total_emp = HR_emp.objects.all().count()
+                total_emp = HR_emp.objects.all().count()    
                 print("---------------------------->", total_emp)
                 hid = HR.objects.get(id=request.session['id'])
                 print("---------------------------->", hid.username)
@@ -48,7 +50,8 @@ def hr_login_evalute(request):
                     "num_emp": total_emp,
                     "hid": hid
                 }
-                return render(request, "myapp/index.html", {'hr': hr})
+                leave_info = emp_leaves.objects.filter(emp_hr_lv_status='pending')
+                return render(request, "myapp/index.html", {'hr': hr , 'leave_info': leave_info})
 
             else:
                 msg = "invalid password"
@@ -594,3 +597,32 @@ def search_leave(request):
         }
         return render(request, "myapp/hr_leaves.html", {'leave_data': leave_data , 'totals':totals})
     
+
+def emp_status(request , pk=None):
+    emp_st_info = emp_leaves.objects.get(id=pk)
+    if  emp_st_info.emp_hr_lv_status == "pending" :
+        return render(request, "myapp/emp_status.html", {'emp_st_info': emp_st_info})
+    else :
+        msg2="Can Not Change Status"
+        leave_info = emp_leaves.objects.filter(emp_hr_lv_status='pending')
+        
+        return render(request, "myapp/index.html", {'msg2': msg2, 'leave_info': leave_info })
+
+def emp_status_ev(request):
+    id = request.POST['id']
+    emp_leave_status=request.POST['emp_leave_status']
+    uid = emp_leaves.objects.get(id=id)
+    if uid:
+        uid.emp_hr_lv_status= emp_leave_status
+        uid.save()
+        msg2 = " Edit Status Successfully!!"
+        leave_info = emp_leaves.objects.filter(emp_hr_lv_status='pending')
+        
+        return render(request, "myapp/index.html", {'msg2': msg2, 'leave_info': leave_info })
+
+def emp_search_leave(request):
+    if request.POST.get('status_type'):
+        status = request.POST['status_type']
+        leave_data = emp_leaves.objects.filter(emp_hr_lv_status=status)
+        
+        return render(request, "myapp/index.html", {'leave_data': leave_data })
