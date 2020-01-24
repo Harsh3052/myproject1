@@ -486,7 +486,15 @@ def edit_hr_leave(request , pk=None):
     print("========================================>HR_LEAVE_INFO",hr_lv_info.hr_nm)
     print("========================================>Session_ID",request.session['hr_first_name'])
     if hr_lv_info.hr_nm == request.session['hr_first_name'] and hr_lv_info.hr_lv_status == "pending":
-        return render(request, "myapp/edit_hr_leave.html", {'hr_lv_info': hr_lv_info})
+
+        s1 = hr_lv_info.date_start
+        dt_obj = datetime.strptime(s1, '%Y-%m-%d ') 
+        date_start = datetime.strftime(dt_obj, '%d/%m/%Y')
+
+        s2 = hr_lv_info.date_end
+        dt_obj1 = datetime.strptime(s2, '%Y-%m-%d ') 
+        date_end = datetime.strftime(dt_obj1, '%d/%m/%Y')
+        return render(request, "myapp/edit_hr_leave.html", {'hr_lv_info': hr_lv_info , 'date_start':date_start , 'date_end':date_end  })
     else :
         msg2="Can Not Edit This User"
         leave_info = HR_leave.objects.filter(hr_lv_status="pending")
