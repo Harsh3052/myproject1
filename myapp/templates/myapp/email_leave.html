@@ -109,7 +109,7 @@
                     <table>
                         <tr>
                             <td class="title">
-                                <img src="{% static 'myapp\assets\img\logo2.png' %}" style="width:100%; max-width:100px;">
+                                <img src="https://dreamguys.co.in/smarthr/assets/img/logo.png" style="width:100%; max-width:100px;">
                             </td>
                             
                             
@@ -120,8 +120,16 @@
           	
           <td>
             <h2>
-             Hello Harsh,<br>
-              <span style="color : green;">Your leave request has been approved!</span>
+             Hello {{data.emp_name}},<br>
+
+             {% if data.leave_status == "Approve" %}
+             <span style="color : green;">Your leave request has been {{data.leave_status}}!</span>
+             {% endif %}
+
+             {% if data.leave_status == "Decline" %}
+             <span style="color : red;">Your leave request has been {{data.leave_status}}!</span>
+             {% endif %}
+              
             </h2> 
           </td>
             
@@ -137,8 +145,8 @@
                             
                             <td>
                                 <h4>
-                                <span style="color: rgb(111, 0, 255);">Harsh</span> <br>
-                                <span style="color: rgb(111, 0, 255);">trivediharsh@gmail.com</span> <br>
+                                <span style="color: rgb(111, 0, 255);">{{data.hr_name}}</span> <br>
+                                <span style="color: rgb(111, 0, 255);">{{data.hr_email}}</span> <br>
                             </h4>
                             </td>
                         </tr>
@@ -152,7 +160,7 @@
                 </td>
                 
                 <td>
-                    Casual Leave
+                    {{data.leave_type}}
                 </td>
             </tr>
             
@@ -162,7 +170,7 @@
                 </td>
                 
                 <td>
-                    1000
+                    {{data.start_date}}
                 </td>
             </tr>
             
@@ -172,7 +180,7 @@
                 </td>
                 
                 <td>
-                    1256
+                    {{data.end_date}}
                 </td>
             </tr>
             
@@ -182,7 +190,7 @@
                 </td>
                 
                 <td>
-                    Sick
+                    {{data.reason}}
                 </td>
             </tr>
             
@@ -192,7 +200,7 @@
                 </td>
                 
                 <td>
-                    2
+                    {{data.days}}
                 </td>
             </tr>
             
@@ -202,7 +210,15 @@
                 </td>
                 
                 <td>
-                    <span style="color: green;">Approved</span>
+
+                    {% if data.leave_status == "Approve" %}
+                    <span style="color: green;">{{data.leave_status}}</span>
+             {% endif %}
+
+             {% if data.leave_status == "Decline" %}
+             <span style="color: red;">{{data.leave_status}}</span>
+                {% endif %}
+                    
                 </td>
             </tr>
             
@@ -211,8 +227,10 @@
       <td>
             <h4>
              Regards,<br>
-              Harsh Trivedi (HR) <br>
+              <span style="color: crimson">
+              {{data.hr_name}} (HR) <br>
               Dreamguy's Technologies Pvt,Ltd.
+            </span>
             </h4> 
           </td>
     </div>

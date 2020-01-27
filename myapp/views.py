@@ -6,6 +6,7 @@ from django.core.mail import send_mail
 import re
 from datetime import datetime
 from datetime import date
+from .utils import *
 
 # Create your views here.
 
@@ -506,6 +507,7 @@ def edit_hr_leave_ev(request):
     id = request.POST['id']
     # pic=request.FILES['pic']
     leave_type = request.POST['leave_type']
+
     s1 = request.POST['date_start']
     dt_obj = datetime.strptime(s1, '%d/%m/%Y')
     date_start = datetime.strftime(dt_obj, '%Y-%m-%d ')
@@ -622,12 +624,28 @@ def emp_status_ev(request):
     id = request.POST['id']
     emp_leave_status=request.POST['emp_leave_status']
     uid = emp_leaves.objects.get(id=id)
+    id0=uid.emp_id
+    id1=HR_emp.objects.get(id=id0)
+    print("Email ID =======================>",id1.email)
+    email=id1.email
+    emp_name=uid.emp_hr_nm
+    hr_name=request.session['hr_first_name']
+    hr_email=request.session['email']
+    leave_type=uid.emp_leave_type
+    start_date=uid.emp_date_start
+    end_date=uid.emp_date_end
+    reason=uid.emp_leave_reason
+    days=uid.emp_no_day
+    img=id1.profile_pic
     if uid:
         uid.emp_hr_lv_status= emp_leave_status
         uid.save()
+        leave_status=uid.emp_hr_lv_status
         msg2 = " Edit Status Successfully!!"
         leave_info = emp_leaves.objects.filter(emp_hr_lv_status='pending')
-        
+        sendmail("Leave Status", "email_leave", email, {'emp_name': emp_name, 'hr_name': hr_name, 'hr_email' : hr_email , 
+        'leave_type': leave_type , 'start_date' : start_date, 'end_date' :end_date ,'reason' : reason ,'days' : days ,
+        'leave_status' : leave_status ,'img' : img  })
         return render(request, "myapp/index.html", {'msg2': msg2, 'leave_info': leave_info })
 
 def emp_search_leave(request):

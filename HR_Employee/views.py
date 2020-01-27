@@ -289,18 +289,21 @@ def edit_emp_leave_ev(request):
     id = request.POST['id']
     # pic=request.FILES['pic']
     emp_leave_type = request.POST['emp_leave_type']
+
     s1 = request.POST['emp_date_start']
+    print("s1===============================>",s1)
     dt_obj = datetime.strptime(s1, '%d/%m/%Y') 
     emp_date_start = datetime.strftime(dt_obj, '%Y-%m-%d ')
 
     s2 = request.POST['emp_date_end']
+    print("s2===============================>",s2)
     dt_obj1 = datetime.strptime(s2, '%d/%m/%Y') 
     emp_date_end = datetime.strftime(dt_obj1, '%Y-%m-%d ')
     
     day = abs(dt_obj1-dt_obj)
     emp_no_day = day.days
     emp_leave_reason = request.POST['emp_leave_reason']
-
+    print("date======================================>",dt_obj.date())
     if dt_obj.date() < date.today():
         msg = "Start date cannot be before the current date."
         emp_lv_info = emp_leaves.objects.get(id=id)
