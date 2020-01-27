@@ -279,16 +279,7 @@ def edit_emp_leave(request , pk=None):
     emp_lv_info = emp_leaves.objects.get(id=pk)
     
     if emp_lv_info.emp_hr_lv_status == "pending" and str(emp_lv_info.emp_id) == str(request.session['id']):
-
-        s1 = emp_lv_info.emp_date_start
-        dt_obj = datetime.strptime(s1, '%Y-%m-%d ') 
-        emp_date_start = datetime.strftime(dt_obj, '%d/%m/%Y')
-
-        s2 = emp_lv_info.emp_date_end
-        dt_obj1 = datetime.strptime(s2, '%Y-%m-%d ') 
-        emp_date_end = datetime.strftime(dt_obj1, '%d/%m/%Y')
-
-        return render(request, "HR_Employee/edit_emp_leave.html", {'emp_lv_info': emp_lv_info , 'emp_date_start' : emp_date_start , 'emp_date_end' : emp_date_end})
+            return render(request, "HR_Employee/edit_emp_leave.html", {'emp_lv_info': emp_lv_info })
     else :
         msg2="Can Not Edit This User"
         leave_info = emp_leaves.objects.filter(emp_hr_lv_status='pending',emp_id=request.session['id'])
@@ -309,20 +300,15 @@ def edit_emp_leave_ev(request):
     day = abs(dt_obj1-dt_obj)
     emp_no_day = day.days
     emp_leave_reason = request.POST['emp_leave_reason']
+
     if dt_obj.date() < date.today():
         msg = "Start date cannot be before the current date."
         emp_lv_info = emp_leaves.objects.get(id=id)
-        emp_date_start=emp_lv_info.emp_date_start
-        
-        return render(request, "HR_Employee/edit_emp_leave.html", {'emp_lv_info': emp_lv_info , 'msg': msg , 'emp_date_start' : emp_date_start })
+        return render(request, "HR_Employee/edit_emp_leave.html", {'emp_lv_info': emp_lv_info , 'msg': msg  })
     elif dt_obj.date() > dt_obj1.date():
         msg = "End date cannot be before start date."
         emp_lv_info = emp_leaves.objects.get(id=id)
-        emp_date_start=emp_lv_info.emp_date_start
-        
-
-        return render(request, "HR_Employee/edit_emp_leave.html", {'emp_lv_info': emp_lv_info , 'msg': msg , 'emp_date_start' : emp_date_start })
-        
+        return render(request, "HR_Employee/edit_emp_leave.html", {'emp_lv_info': emp_lv_info , 'msg': msg  })
     else:
         uid = emp_leaves.objects.get(id=id)
         if uid:
