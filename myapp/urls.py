@@ -58,5 +58,6 @@ urlpatterns = [
     path('emp_status_ev/',views.emp_status_ev,name='emp_status_ev'),
     path('emp_search_leave/',views.emp_search_leave,name='emp_search_leave'),
     path('email_leave/',views.email_leave,name='email_leave'),
+    path('hr_email_leave/',views.hr_email_leave,name='hr_email_leave'),
     ]
 

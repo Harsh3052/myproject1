@@ -30,6 +30,7 @@ class HR_emp(models.Model):
 
 
 class HR_leave(models.Model):
+    hr_id = models.ForeignKey(HR ,on_delete=models.CASCADE ,default='')
     leave_type = models.CharField(max_length=30)
     date_start = models.CharField(max_length=30)  
     date_end = models.CharField(max_length = 20)

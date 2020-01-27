@@ -422,6 +422,7 @@ def hr_leaves_ev(request):
     no_day = day.days
     print("DATE=======================================>", date_start)
     hr_nm = request.session['hr_first_name']
+    hr_id_id=request.session['id']
     reason = {
         "leave_reason": leave_reason,
         "msg": "",
@@ -434,7 +435,7 @@ def hr_leaves_ev(request):
         return render(request, "myapp/hr_add_leaves.html", {'reason': reason})
     else:
         insert = HR_leave.objects.create(leave_type=leave_type, date_start=date_start,
-        date_end=date_end, leave_reason=leave_reason, no_day=no_day, hr_nm=hr_nm)
+        date_end=date_end, leave_reason=leave_reason, no_day=no_day, hr_nm=hr_nm ,hr_id_id=hr_id_id)
         msg2 = " Leave Add Successfully"
         leave_info = HR_leave.objects.filter(hr_lv_status='pending')
         # hrid=HR.objects.get(id=request.session['id'])
@@ -576,10 +577,22 @@ def hr_status_ev(request):
     id = request.POST['id']
     leave_status=request.POST['leave_status']
     uid = HR_leave.objects.get(id=id)
+    hrid = HR.objects.get(id=uid.hr_id_id)
+    print("uid.hr_id_id====================================>",hrid.email)
+    email=hrid.email
+    hr_name=uid.hr_nm
+    hr_login_name=request.session['hr_first_name']
+    hr_login_email=request.session['email']
+    leave_type=uid.leave_type
+    start_date=uid.date_start
+    end_date=uid.date_end
+    reason=uid.leave_reason
+    days=uid.no_day
     if uid:
         uid.hr_lv_status= leave_status
         uid.save()
         msg2 = " Edit Status Successfully!!"
+        leave_status=uid.hr_lv_status
         leave_info = HR_leave.objects.filter(hr_lv_status="pending")
         total_pending=HR_leave.objects.filter(hr_lv_status="pending").count()
         approved=HR_leave.objects.filter(hr_lv_status="Approve",hr_nm=request.session['hr_first_name']).count()
@@ -591,6 +604,9 @@ def hr_status_ev(request):
             "declined":declined,
             "pending":pending
         }
+        sendmail("Leave Status", "hr_email_leave", email, {'hr_name': hr_name, 'hr_login_name': hr_login_name, 'hr_login_email' : hr_login_email , 
+        'leave_type': leave_type , 'start_date' : start_date, 'end_date' :end_date ,'reason' : reason ,'days' : days ,
+        'leave_status' : leave_status  })
         return render(request, "myapp/hr_leaves.html", {'msg2': msg2, 'leave_info': leave_info ,'totals':totals})
 
 def search_leave(request):
@@ -636,7 +652,7 @@ def emp_status_ev(request):
     end_date=uid.emp_date_end
     reason=uid.emp_leave_reason
     days=uid.emp_no_day
-    img=id1.profile_pic
+    
     if uid:
         uid.emp_hr_lv_status= emp_leave_status
         uid.save()
@@ -645,7 +661,7 @@ def emp_status_ev(request):
         leave_info = emp_leaves.objects.filter(emp_hr_lv_status='pending')
         sendmail("Leave Status", "email_leave", email, {'emp_name': emp_name, 'hr_name': hr_name, 'hr_email' : hr_email , 
         'leave_type': leave_type , 'start_date' : start_date, 'end_date' :end_date ,'reason' : reason ,'days' : days ,
-        'leave_status' : leave_status ,'img' : img  })
+        'leave_status' : leave_status   })
         return render(request, "myapp/index.html", {'msg2': msg2, 'leave_info': leave_info })
 
 def emp_search_leave(request):
@@ -657,3 +673,6 @@ def emp_search_leave(request):
 
 def email_leave(request):
     return render(request, "myapp/email_leave.html")
+
+def hr_email_leave(request):
+    return render(request, "myapp/hr_email_leave.html")
