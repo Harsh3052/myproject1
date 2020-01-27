@@ -322,3 +322,6 @@ def edit_emp_leave_ev(request):
             msg2 = " Edit Leave Successfully!!"
             leave_info = emp_leaves.objects.filter(emp_hr_lv_status='pending',emp_id=request.session['id'])
             return render(request, "HR_Employee/emp_leave.html", {'msg2': msg2, 'leave_info': leave_info })
+
+def email_leave(request):
+    return render(request, "HR_Employee/email_leave.html")

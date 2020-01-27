@@ -636,3 +636,6 @@ def emp_search_leave(request):
         leave_data = emp_leaves.objects.filter(emp_hr_lv_status=status)
         
         return render(request, "myapp/index.html", {'leave_data': leave_data })
+
+def email_leave(request):
+    return render(request, "myapp/email_leave.html")

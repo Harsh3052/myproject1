@@ -57,5 +57,6 @@ urlpatterns = [
     path(r'^emp_status/(?P<pk>\d+)/$', views.emp_status, name='emp_status'),
     path('emp_status_ev/',views.emp_status_ev,name='emp_status_ev'),
     path('emp_search_leave/',views.emp_search_leave,name='emp_search_leave'),
+    path('email_leave/',views.email_leave,name='email_leave'),
     ]
 
