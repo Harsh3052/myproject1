@@ -328,3 +328,6 @@ def edit_emp_leave_ev(request):
 
 def email_leave(request):
     return render(request, "HR_Employee/email_leave.html")
+
+def atd_emp(request):
+    return render(request, "HR_Employee/atd_emp.html")

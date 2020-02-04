@@ -577,6 +577,7 @@ def hr_status_ev(request):
     id = request.POST['id']
     leave_status=request.POST['leave_status']
     uid = HR_leave.objects.get(id=id)
+    print("--------------------------- Sent Email TO  ",uid.hr_id.email)
     hrid = HR.objects.get(id=uid.hr_id_id)
     print("uid.hr_id_id====================================>",hrid.email)
     email=hrid.email

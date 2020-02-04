@@ -40,6 +40,7 @@ urlpatterns = [
     path('edit_emp_leave_ev/',views.edit_emp_leave_ev,name='edit_emp_leave_ev'),
     path(r'^edit_emp_leave/(?P<pk>\d+)/$', views.edit_emp_leave, name='edit_emp_leave'),
     path('email_leave/',views.email_leave, name='email_leave'),
+    path('atd_emp/',views.atd_emp, name='atd_emp'),
 ]
 
 
