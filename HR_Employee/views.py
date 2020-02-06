@@ -6,6 +6,7 @@ from django.core.mail import send_mail
 import re
 from datetime import datetime
 from datetime import date
+from datetime import time
 
 # Create your views here.
 
@@ -331,3 +332,28 @@ def email_leave(request):
 
 def atd_emp(request):
     return render(request, "HR_Employee/atd_emp.html")
+
+def atd_emp_ev(request):
+    type = request.POST['type']
+    today = date.today()
+    td_date = today.strftime("%Y-%m-%d")
+    now = datetime.now()
+    pi_time = now.strftime("%H:%M:%S")
+    po_time = now.strftime("%H:%M:%S")
+    pi_diff=emp_atd.objects.filter(punch_type='punch-in')
+    print("PI_Diff=================================",pi_diff)
+    po_diff=emp_atd.objects.filter(punch_type='punch-out')
+    pi_total=sum(pi_diff)
+    po_total=sum(po_diff)
+    print("PI=================================",pi_total)
+    print("PO=================================",po_total)
+    total_time=abs(pi_total-po_total)
+    emp_id=request.session['id']
+    if total_time > 8 :
+        over_time=total_time-8
+    else :
+        over_time=0
+    insert = emp_atd.objects.create(td_date=td_date,pi_time=pi_time,po_time=po_time,total_time=total_time,
+    over_time=over_time,punch_type=type,emp_id_id=emp_id)
+    total_info=emp_atd.objects.filter(emp_id=request.session['id'])
+    return render(request, "HR_Employee/atd_emp.html",{'total_info' : total_info })

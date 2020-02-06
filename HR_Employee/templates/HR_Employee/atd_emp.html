@@ -601,7 +601,10 @@
 					<!-- /Page Header -->
 					
 					<div class="row">
+						
 						<div class="col-md-4">
+							<form method="POST" action="{% url 'atd_emp_ev' %}">
+								{% csrf_token %}
 							<div class="card punch-status">
 								<div class="card-body">
 									<h5 class="card-title">Timesheet <small class="text-muted">11 Mar 2019</small></h5>
@@ -614,11 +617,14 @@
 											<span style="color: black;">3.45 hrs</span>
 										</div>
 									</div>
+									
 									<div class="punch-btn-section">
-										<button type="button" class="btn btn-primary punch-btn" style="background-color: orangered;">Punch IN</button>
+										<input type="hidden" value="punch-in" name="type" id="type">
+										<button  class="btn btn-primary punch-btn" style="background-color: orangered;">Punch IN</button>
 									</div>
 									<div class="punch-btn-section">
-										<button type="button" class="btn btn-primary punch-btn" style="background-color: rgb(255, 0, 0);">Punch Out</button>
+										<input type="hidden" value="punch-out" name="type" id="type">
+										<button  class="btn btn-primary punch-btn" style="background-color: rgb(255, 0, 0);">Punch Out</button>
 									</div>
 									<div class="statistics">
 										<div class="row">
@@ -638,7 +644,9 @@
 									</div>
 								</div>
 							</div>
+						</form>
 						</div>
+						
 						<div class="col-md-4">
 							<div class="card att-statistics">
 								<div class="card-body">
