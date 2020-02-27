@@ -335,20 +335,22 @@ def atd_emp(request):
     return render(request, "HR_Employee/atd_emp.html")
 
 def atd_emp_ev(request):
-    type = request.POST['type']
-    print("TYPE=======================>",type)
+    
+    
     today = date.today()
     td_date = today.strftime("%Y-%m-%d")
     now = datetime.now()
-    pi_time = now.strftime("%H:%M:%S")
-    po_time = now.strftime("%H:%M:%S")
-
+    
+    
     if "type1" in request.POST:
+        type1 = request.POST['type1']
+        print("TYPE===============================>",type1) 
+        pi_time = now.strftime("%H:%M:%S")
+        po_time = 0
         pi_diff=emp_atd.objects.filter(punch_type='punch-in',td_date=date.today()).values('pi_time')
         print("-------------------------> pi_diff",pi_diff) 
         l1=[]
         l2=[]
-        
         for i in pi_diff:
             l1.append(i['pi_time'])
         print("LIST==================>",l1)
@@ -363,12 +365,35 @@ def atd_emp_ev(request):
             totalSecs += (timeParts[0] * 60 + timeParts[1]) * 60 + timeParts[2]
         totalSecs, sec = divmod(totalSecs, 60)
         hr, min = divmod(totalSecs, 60)
-        l4="%d:%02d:%02d" % (hr, min, sec)
+        l4="%02d:%02d:%02d" % (hr, min, sec)
         print ("l4===================>",l4)
+
+        po_diff=emp_atd.objects.filter(punch_type='punch-out',td_date=date.today()).values('po_time')
+        l5=[]
+        l6=[]
+        
+        for i in po_diff:
+            l5.append(i['po_time'])
+        print("LIST l5==================>",l5)
+        # for i in range(0,1):
+        #     l6.append(po_time)
+        # print ("l6===================>",l6)
+        l7=l5
+        print("l7======================>",l7)
+        totalSecs = 0
+        for tm in l7:
+            timeParts = [int(s) for s in tm.split(':')]
+            totalSecs += (timeParts[0] * 60 + timeParts[1]) * 60 + timeParts[2]
+        totalSecs, sec = divmod(totalSecs, 60)
+        hr, min = divmod(totalSecs, 60)
+        l8="%02d:%02d:%02d" % (hr, min, sec)
+        print ("l8===================>",l8)
+
+        
         pi_total=l4    
-        po_total=0
-        print("PI=================================",pi_total)
-        print("PO=================================",po_total)
+        po_total=l8
+        print("PI=================================",pi_total[0:2])
+        print("PO=================================",po_total[0:2])
         total_time=(int(pi_total[0:2])-int(po_total[0:2]))
         print("Total Time=================================",total_time)
         emp_id=request.session['id']
@@ -376,45 +401,80 @@ def atd_emp_ev(request):
             over_time=total_time-8  
         else :
             over_time=0
+
         insert = emp_atd.objects.create(td_date=td_date,pi_time=pi_time,po_time=po_time,total_time=total_time,
-        over_time=over_time,punch_type=type,emp_id_id=emp_id)
+        over_time=over_time,punch_type=type1,emp_id_id=emp_id)
         total_info=emp_atd.objects.filter(emp_id=request.session['id'])
         return render(request, "HR_Employee/atd_emp.html",{'total_info' : total_info })
-    
-    if "type2" in request.POST:
-        po_diff=emp_atd.objects.filter(punch_type='punch-out',td_date=date.today()).values('po_time')
-        l5=[]
-        l6=[]
         
-        for i in pi_diff:
-            l5.append(i['po_time'])
-        print("LIST==================>",l5)
-        for i in range(0,1):
-            l6.append(po_time)
-        print ("l2===================>",l6)
-        l7=l5+l6
-        print("======================>",l7)
-        totalSecs = 0
-        for tm in l7:
-            timeParts = [int(s) for s in tm.split(':')]
-            totalSecs += (timeParts[0] * 60 + timeParts[1]) * 60 + timeParts[2]
-        totalSecs, sec = divmod(totalSecs, 60)
-        hr, min = divmod(totalSecs, 60)
-        l8="%d:%02d:%02d" % (hr, min, sec)
-        print ("l4===================>",l8)
+    elif "type2" in request.POST:
+        try:
+            
+            type2 = request.POST['type2']
+            print("TYPE===============================>",type2) 
+            pi_time = 0
+            po_time = now.strftime("%H:%M:%S")
+            pi_diff=emp_atd.objects.filter(punch_type='punch-in',td_date=date.today()).values('pi_time')
+            print("-------------------------> pi_diff",pi_diff) 
+            l1=[]
+            l2=[]
+            for i in pi_diff:
+                l1.append(i['pi_time'])
+            print("LIST==================>",l1)
+            # for i in range(0,1):
+            #     l2.append(pi_time)
+            # print ("l2===================>",l2)
+            l3=l1+l2
+            print("======================>",l3)
+            totalSecs = 0
+            for tm in l3:
+                timeParts = [int(s) for s in tm.split(':')]
+                totalSecs += (timeParts[0] * 60 + timeParts[1]) * 60 + timeParts[2]
+            totalSecs, sec = divmod(totalSecs, 60)
+            hr, min = divmod(totalSecs, 60)
+            l4="%02d:%02d:%02d" % (hr, min, sec)
+            print ("l4===================>",l4)
 
-    pi_total=l4    
-    po_total=l8
-    print("PI=================================",pi_total)
-    print("PO=================================",po_total)
-    total_time=(int(pi_total[0:2])-int(po_total[0:2]))
-    print("Total Time=================================",total_time)
-    emp_id=request.session['id']
-    if total_time > 8 :
-        over_time=total_time-8  
-    else :
-        over_time=0
-    insert = emp_atd.objects.create(td_date=td_date,pi_time=pi_time,po_time=po_time,total_time=total_time,
-    over_time=over_time,punch_type=type,emp_id_id=emp_id)
-    total_info=emp_atd.objects.filter(emp_id=request.session['id'])
-    return render(request, "HR_Employee/atd_emp.html",{'total_info' : total_info })
+            po_diff=emp_atd.objects.filter(punch_type='punch-out',td_date=date.today()).values('po_time')
+            l5=[]
+            l6=[]
+            
+            for i in po_diff:
+                l5.append(i['po_time'])
+            print("LIST l5==================>",l5)
+            for i in range(0,1):
+                l6.append(po_time)
+            print ("l6===================>",l6)
+            l7=l5+l6
+            print("l7======================>",l7)
+            totalSecs = 0
+            for tm in l7:
+                timeParts = [int(s) for s in tm.split(':')]
+                totalSecs += (timeParts[0] * 60 + timeParts[1]) * 60 + timeParts[2]
+            totalSecs, sec = divmod(totalSecs, 60)
+            hr, min = divmod(totalSecs, 60)
+            l8="%02d:%02d:%02d" % (hr, min, sec)
+            print ("l8===================>",l8)
+
+            
+            pi_total=l4    
+            po_total=l8
+            print("PI=================================",pi_total)
+            print("PO=================================",po_total)
+            total_time=(int(pi_total[0:2])-int(po_total[0:2]))
+            print("Total Time=================================",total_time)
+            emp_id=request.session['id']
+            if total_time > 8 :
+                over_time=total_time-8  
+            else :
+                over_time=0
+
+            insert = emp_atd.objects.create(td_date=td_date,pi_time=pi_time,po_time=po_time,total_time=total_time,
+            over_time=over_time,punch_type=type2,emp_id_id=emp_id)
+            total_info=emp_atd.objects.filter(emp_id=request.session['id'])
+            return render(request, "HR_Employee/atd_emp.html",{'total_info' : total_info })
+        except:
+            total_info=emp_atd.objects.filter(emp_id=request.session['id'])
+            return render(request, "HR_Employee/atd_emp.html",{'total_info' : total_info })
+
+    
