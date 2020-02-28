@@ -21,4 +21,4 @@ class emp_atd(models.Model):
     po_time = models.CharField(max_length=50)
     total_time = models.CharField(max_length=50)
     over_time = models.CharField(max_length=50)
-    punch_type = models.CharField(max_length=50,default='')
+    punch_type = models.CharField(max_length=50,default='punch-in')

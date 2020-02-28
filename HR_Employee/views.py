@@ -30,7 +30,6 @@ def emp_login_evalute(request):
                 empid = HR_emp.objects.get(id=request.session['id'])
                 print("EMPID=============================", empid)
                 return render(request, "HR_Employee/emp_index.html", {'empid': empid})
-
             else:
                 msg = "invalid password"
                 return render(request, "HR_Employee/emp_login.html", {'msg': msg})
@@ -344,6 +343,8 @@ def atd_emp_ev(request):
     
     if "type1" in request.POST:
         type1 = request.POST['type1']
+        request.session['in']="in"
+        
         print("TYPE===============================>",type1) 
         pi_time = now.strftime("%H:%M:%S")
         po_time = 0
@@ -387,9 +388,7 @@ def atd_emp_ev(request):
         totalSecs, sec = divmod(totalSecs, 60)
         hr, min = divmod(totalSecs, 60)
         l8="%02d:%02d:%02d" % (hr, min, sec)
-        print ("l8===================>",l8)
-
-        
+        print ("l8===================>",l8)        
         pi_total=l4    
         po_total=l8
         print("PI=================================",pi_total[0:2])
@@ -409,7 +408,7 @@ def atd_emp_ev(request):
         
     elif "type2" in request.POST:
         try:
-            
+            del request.session['in']
             type2 = request.POST['type2']
             print("TYPE===============================>",type2) 
             pi_time = 0
