@@ -106,8 +106,8 @@ for n, val in enumerate(db_variable):
         listOfGlobals = globals()
         globals()[val] = ''
 
-LOG_FILENAME = '/root/BHRUK/racewaysnet/racewaysnet_'+pickUpDate.strftime("%Y%m%d")+'.log'
-error_filename='/root/BHRUK/racewaysnet/racewaysnet_error_'+pickUpDate.strftime("%Y%m%d")+'.log'
+LOG_FILENAME = '/var/lib/jenkins/workspace/git_testing/racewaysnet_'+pickUpDate.strftime("%Y%m%d")+'.log'
+error_filename='/var/lib/jenkins/workspace/git_testing/racewaysnet_error_'+pickUpDate.strftime("%Y%m%d")+'.log'
 listOfGlobals['Fromdate']=pickUpDate.strftime("%Y-%m-%d %H:%M").replace('12:00','00:00:00')
 # logging.basicConfig(filename="\\root\\common_framwork\\raceways\\abc.log") 
 fh = logging.FileHandler(LOG_FILENAME)
@@ -133,7 +133,7 @@ logger1 = logging1.getLogger('errorlog')
 logger1.setLevel(logging1.INFO)
 logger1.addHandler(ch1)
 logger1.addHandler(fh1)
-screenshotFolder ='/root/BHRUK/racewaysnet/racewaysnet_'+pickUpDate.strftime("%Y%m%d")+'/' ##'./racewaysnet_'+pickUpDate.strftime("%Y%m%d")+'/'
+screenshotFolder ='/var/lib/jenkins/workspace/git_testing/racewaysnet_'+pickUpDate.strftime("%Y%m%d")+'/' ##'./racewaysnet_'+pickUpDate.strftime("%Y%m%d")+'/'
 if not os.path.exists(screenshotFolder):
     os.mkdir(screenshotFolder)
 #browser = webdriver.PhantomJS()
@@ -144,7 +144,7 @@ website_name='www.raceways.net'
 created_date=str(now)
 pickup_date2=str(pickUpDate.strftime("%Y-%m-%d"))
 log_file_name='racewaysnet_'+pickUpDate.strftime("%Y%m%d")+'.log'
-log_file_path='/root/BHRUK/racewaysnet/'
+log_file_path='/var/lib/jenkins/workspace/git_testing/'
 log_details(db_user_pass,created_date,pickup_date2,log_file_name,log_file_path,website_name)
 
 job_name=config_name
