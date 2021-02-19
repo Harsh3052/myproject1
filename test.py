@@ -9,5 +9,5 @@ def createFolder(directory):
         
 
 # Example
-createFolder('./data/')
+createFolder('./data_2/')
 # Creates a folder in the current directory called data
