@@ -24,11 +24,11 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
-sys.path.append("/root/BHRUK/cfiles")
+# sys.path.append("/root/BHRUK/cfiles")
 from func import *
 from pro_config import *
 # sys.path.insert(1, '/root/automate_sites/')
-from send_email import *
+# from send_email import *
 import PIL
 from PIL import Image
 from time import gmtime, strftime
@@ -379,6 +379,6 @@ for bikeUrl in bikes:
 status='3'
 completed_date=datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 update_spider_jobs(db_user_pass,job_name,status,completed_date)
-send_email(extraction_date,"racewaysnet_"+extraction_date+" completed","racewaysnet_"+extraction_date+" completed")
+# send_email(extraction_date,"racewaysnet_"+extraction_date+" completed","racewaysnet_"+extraction_date+" completed")
 browser.quit()
 d.stop()
